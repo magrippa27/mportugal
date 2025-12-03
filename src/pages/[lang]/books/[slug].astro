@@ -1,0 +1,128 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import MainLayout from '../../../layouts/MainLayout.astro';
+import BookCard from '../../../components/BookCard.astro';
+import { type Language, useTranslations, languages } from '../../../i18n/utils';
+
+export async function getStaticPaths() {
+  const allBooksCollection = (await getCollection('books' as any)) as any[];
+  
+  return allBooksCollection.map(book => ({
+    params: { 
+      lang: book.data.language, 
+      slug: book.id 
+    },
+    props: { book }
+  }));
+}
+
+const { book } = Astro.props as { book: any };
+const { lang } = Astro.params as { lang: Language };
+const t = useTranslations(lang);
+
+
+const allBooksCollection = (await getCollection('books' as any)) as any[];
+const allBooks = allBooksCollection.filter(b => b.data.language === lang);
+const relatedBooks = allBooks
+  .filter(b => b.data.category === book.data.category && b.id !== book.id)
+  .slice(0, 3);
+
+const formattedDate = book.data.publicationDate.toLocaleDateString(
+  lang === 'es' ? 'es-ES' : 'en-US',
+  { year: 'numeric', month: 'long', day: 'numeric' }
+);
+---
+
+<MainLayout 
+  title={book.data.title}
+  description={book.data.summary}
+  lang={lang}
+  image={book.data.coverImage}
+>
+  <article class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-3 gap-12">
+        <div class="lg:col-span-1">
+          <div class="sticky top-24">
+            <img 
+              src={book.data.coverImage} 
+              alt={book.data.title}
+              class="w-full rounded-lg shadow-xl mb-6"
+            />
+            <div class="bg-white p-6 rounded-lg border border-gray-200">
+              <p class="text-sm text-gray-600 mb-2">
+                {t('books.publicationDate')}
+              </p>
+              <p class="font-medium text-gray-900 mb-4">
+                {formattedDate}
+              </p>
+              
+              <p class="text-sm text-gray-600 mb-2">
+                {t('blog.categories')}
+              </p>
+              <span class="inline-block px-3 py-1 text-sm font-medium rounded-full bg-primary-100 text-primary-800 mb-6">
+                {t(`blog.category.${book.data.category}`)}
+              </span>
+              
+              <a 
+                href={book.data.downloadUrl || '#'}
+                class="block w-full text-center px-6 py-3 bg-accent-600 text-white rounded-lg hover:bg-accent-700 transition-colors font-medium"
+              >
+                {t('books.download')}
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="lg:col-span-2">
+          <h1 class="text-4xl font-bold text-gray-900 mb-4">
+            {book.data.title}
+          </h1>
+          
+          <div class="prose prose-lg max-w-none mb-8 prose-headings:font-bold prose-a:text-primary-700">
+            <h2>Summary</h2>
+            <p class="text-xl text-gray-700 leading-relaxed">
+              {book.data.summary}
+            </p>
+            
+            {book.body && (
+              <div set:html={book.body} />
+            )}
+          </div>
+          
+          <div class="bg-primary-50 border-l-4 border-primary-600 p-6 rounded-r-lg">
+            <h3 class="text-xl font-bold text-gray-900 mb-3">
+              Author's Note
+            </h3>
+            <p class="text-gray-700 leading-relaxed">
+              {book.data.authorNote}
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      {relatedBooks.length > 0 && (
+        <div class="mt-16 pt-16 border-t border-gray-200">
+          <h2 class="text-3xl font-bold text-gray-900 mb-8">
+            {t('books.relatedBooks')}
+          </h2>
+          <div class="grid md:grid-cols-3 gap-8">
+            {relatedBooks.map(relatedBook => (
+              <BookCard
+                title={relatedBook.data.title}
+                category={relatedBook.data.category}
+                coverImage={relatedBook.data.coverImage}
+                summary={relatedBook.data.summary}
+                slug={relatedBook.id}
+                lang={lang}
+                publicationDate={relatedBook.data.publicationDate}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </article>
+</MainLayout>
+

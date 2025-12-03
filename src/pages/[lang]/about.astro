@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import MainLayout from '../../layouts/MainLayout.astro';
+import { type Language, useTranslations, languages } from '../../i18n/utils';
+
+export async function getStaticPaths() {
+  return Object.keys(languages).map(lang => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Language };
+const t = useTranslations(lang);
+
+const aboutPages = await getCollection('page');
+const aboutPage = aboutPages.find(p => p.id === `about.${lang}`);
+---
+
+<MainLayout 
+  title={t('about.title')}
+  description={t('site.tagline')}
+  lang={lang}
+>
+  <article class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-12 text-center">
+        <img 
+          src="/blog-placeholder-about.jpg" 
+          alt={t('site.title')}
+          class="w-64 h-64 rounded-full mx-auto mb-8 object-cover shadow-xl"
+        />
+      </div>
+      
+      {aboutPage && (
+        <div class="prose prose-lg max-w-prose mx-auto prose-headings:font-bold prose-a:text-primary-700 prose-a:underline hover:prose-a:text-primary-900">
+          <div set:html={aboutPage.body} />
+        </div>
+      )}
+    </div>
+  </article>
+</MainLayout>
+

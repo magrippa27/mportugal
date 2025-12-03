@@ -1,0 +1,55 @@
+---
+import { type Language } from '../i18n/utils';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  lang: Language;
+  image?: string;
+}
+
+const { title, description, lang, image = '/blog-placeholder-about.jpg' } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.url)} />
+    
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(image, Astro.url)} />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body class="bg-gray-50 text-gray-900 antialiased">
+    <div class="flex flex-col min-h-screen">
+      <SiteHeader lang={lang} />
+      <main class="flex-grow">
+        <slot />
+      </main>
+      <SiteFooter lang={lang} />
+    </div>
+  </body>
+</html>
+

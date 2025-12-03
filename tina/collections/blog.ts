@@ -40,6 +40,23 @@ export const BlogCollection: Collection = {
       type: "image",
     },
     {
+      name: "categories",
+      label: "Categories",
+      type: "string",
+      list: true,
+      options: ["radio", "tobacco", "tools", "veterinary", "other"],
+    },
+    {
+      name: "language",
+      label: "Language",
+      type: "string",
+      required: true,
+      options: [
+        { label: "English", value: "en" },
+        { label: "Español", value: "es" },
+      ],
+    },
+    {
       type: "rich-text",
       name: "body",
       label: "Body",

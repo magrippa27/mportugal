@@ -1,0 +1,27 @@
+---
+import { type Language, languages, switchLanguageUrl } from '../i18n/utils';
+
+interface Props {
+  lang: Language;
+  currentPath: string;
+}
+
+const { lang, currentPath } = Astro.props;
+---
+
+<div class="flex items-center space-x-2 border-l border-gray-300 pl-6">
+  {Object.entries(languages).map(([code, name]) => (
+    <a
+      href={switchLanguageUrl(currentPath, code as Language)}
+      class={`px-3 py-1 rounded text-sm font-medium transition-colors ${
+        code === lang 
+          ? 'bg-primary-600 text-white' 
+          : 'text-gray-600 hover:bg-gray-100'
+      }`}
+      aria-label={`Switch to ${name}`}
+    >
+      {code.toUpperCase()}
+    </a>
+  ))}
+</div>
+

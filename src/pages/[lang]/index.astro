@@ -1,0 +1,154 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import MainLayout from '../../layouts/MainLayout.astro';
+import BookCard from '../../components/BookCard.astro';
+import PostCard from '../../components/PostCard.astro';
+import { type Language, useTranslations, languages } from '../../i18n/utils';
+
+export async function getStaticPaths() {
+  return Object.keys(languages).map(lang => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Language };
+const t = useTranslations(lang);
+
+const allPostsCollection = (await getCollection('blog')) as any[];
+const allPosts = allPostsCollection.filter(post => post.data.language === lang);
+const latestPosts = allPosts
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 6);
+
+const allBooksCollection = (await getCollection('books' as any)) as any[];
+const allBooks = allBooksCollection.filter(book => book.data.language === lang);
+const featuredBooks = allBooks
+  .sort((a, b) => b.data.publicationDate.valueOf() - a.data.publicationDate.valueOf())
+  .slice(0, 3);
+---
+
+<MainLayout 
+  title={t('site.title')}
+  description={t('site.tagline')}
+  lang={lang}
+>
+  <section class="bg-gradient-to-b from-primary-50 to-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="order-2 md:order-1">
+          <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            {t('site.title')}
+          </h1>
+          <p class="text-xl text-gray-700 mb-8 leading-relaxed">
+            {t('site.tagline')}
+          </p>
+          <a 
+            href={`/${lang}/about`}
+            class="inline-block px-8 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors font-medium text-lg"
+          >
+            {t('home.aboutTeaser')}
+          </a>
+        </div>
+        <div class="order-1 md:order-2">
+          <img 
+            src="/blog-placeholder-about.jpg" 
+            alt={t('site.title')}
+            class="rounded-lg shadow-xl w-full"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">
+        {t('nav.radio')} & {t('nav.tobacco')}
+      </h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <a 
+          href={`/${lang}/radio`}
+          class="group p-8 bg-gradient-to-br from-primary-50 to-primary-100 rounded-lg border-2 border-primary-200 hover:border-primary-400 transition-all hover:shadow-lg"
+        >
+          <h3 class="text-2xl font-bold mb-4 text-primary-900 group-hover:text-primary-700 transition-colors">
+            {t('home.radioCard.title')}
+          </h3>
+          <p class="text-gray-700 leading-relaxed">
+            {t('home.radioCard.description')}
+          </p>
+        </a>
+        <a 
+          href={`/${lang}/tobacco`}
+          class="group p-8 bg-gradient-to-br from-accent-50 to-accent-100 rounded-lg border-2 border-accent-200 hover:border-accent-400 transition-all hover:shadow-lg"
+        >
+          <h3 class="text-2xl font-bold mb-4 text-accent-900 group-hover:text-accent-700 transition-colors">
+            {t('home.tobaccoCard.title')}
+          </h3>
+          <p class="text-gray-700 leading-relaxed">
+            {t('home.tobaccoCard.description')}
+          </p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {featuredBooks.length > 0 && (
+    <section class="py-16 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-900">
+            {t('home.featuredBooks')}
+          </h2>
+          <a 
+            href={`/${lang}/books`}
+            class="text-primary-700 hover:text-primary-900 font-medium underline"
+          >
+            {t('home.viewAllBooks')} →
+          </a>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+          {featuredBooks.map(book => (
+            <BookCard
+              title={book.data.title}
+              category={book.data.category}
+              coverImage={book.data.coverImage}
+              summary={book.data.summary}
+              slug={book.id}
+              lang={lang}
+              publicationDate={book.data.publicationDate}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-900">
+          {t('home.latestPosts')}
+        </h2>
+        <a 
+          href={`/${lang}/blog`}
+          class="text-primary-700 hover:text-primary-900 font-medium underline"
+        >
+          {t('home.viewAllPosts')} →
+        </a>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {latestPosts.map(post => (
+          <PostCard
+            title={post.data.title}
+            description={post.data.description}
+            pubDate={post.data.pubDate}
+            slug={post.id}
+            lang={lang}
+            categories={post.data.categories}
+            heroImage={post.data.heroImage}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</MainLayout>
+

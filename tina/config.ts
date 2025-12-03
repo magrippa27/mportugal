@@ -1,5 +1,6 @@
 import { defineConfig } from "tinacms";
 import { BlogCollection } from "./collections/blog";
+import { BooksCollection } from "./collections/books";
 import { GlobalConfigCollection } from "./collections/global-config";
 import { PageCollection } from "./collections/page";
 
@@ -32,6 +33,7 @@ export default defineConfig({
   schema: {
     collections: [
       BlogCollection,
+      BooksCollection,
       PageCollection,
       GlobalConfigCollection,
     ],

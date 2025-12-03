@@ -1,0 +1,48 @@
+---
+import { type Language, useTranslations, getLocalizedUrl } from '../i18n/utils';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import MobileNav from './react/MobileNav';
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const navItems = [
+  { href: '/', label: t('nav.home') },
+  { href: '/radio', label: t('nav.radio') },
+  { href: '/tobacco', label: t('nav.tobacco') },
+  { href: '/books', label: t('nav.books') },
+  { href: '/blog', label: t('nav.blog') },
+  { href: '/about', label: t('nav.about') },
+];
+---
+
+<header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-20">
+      <a href={getLocalizedUrl('/', lang)} class="text-2xl font-bold text-gray-900 hover:text-primary-700 transition-colors">
+        {t('site.title')}
+      </a>
+      
+      <nav class="hidden md:flex items-center space-x-8">
+        {navItems.map(item => (
+          <a 
+            href={getLocalizedUrl(item.href, lang)} 
+            class="text-gray-700 hover:text-primary-700 transition-colors font-medium"
+          >
+            {item.label}
+          </a>
+        ))}
+        <LanguageSwitcher lang={lang} currentPath={Astro.url.pathname} />
+      </nav>
+      
+      <div class="md:hidden">
+        <MobileNav client:load lang={lang} navItems={navItems} currentPath={Astro.url.pathname} />
+      </div>
+    </div>
+  </div>
+</header>
+
