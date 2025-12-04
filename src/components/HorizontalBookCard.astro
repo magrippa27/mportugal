@@ -1,0 +1,57 @@
+---
+import { type Language, useTranslations } from '../i18n/utils';
+
+interface Props {
+  title: string;
+  category: string;
+  coverImage: string;
+  summary: string;
+  slug: string;
+  lang: Language;
+  publicationDate: Date;
+  accentColor?: 'primary' | 'accent';
+}
+
+const { title, category, coverImage, summary, slug, lang, publicationDate, accentColor = 'primary' } = Astro.props;
+const t = useTranslations(lang);
+
+const year = publicationDate.getFullYear();
+const borderColor = accentColor === 'primary' ? 'border-primary-400' : 'border-accent-400';
+const textColor = accentColor === 'primary' ? 'text-primary-700' : 'text-accent-700';
+const badgeColor = accentColor === 'primary' ? 'bg-primary-100 text-primary-800' : 'bg-accent-100 text-accent-800';
+---
+
+<a 
+  href={`/${lang}/books/${slug}`}
+  class={`group flex gap-6 bg-white rounded-lg border-2 border-gray-200 hover:${borderColor} hover:shadow-xl transition-all p-6`}
+>
+  <div class="flex-shrink-0">
+    <img 
+      src={coverImage}
+      alt={title}
+      class="w-32 h-44 object-cover rounded shadow-md group-hover:shadow-lg transition-shadow"
+    />
+  </div>
+  <div class="flex-1 flex flex-col">
+    <div class="mb-2">
+      <span class={`inline-block px-3 py-1 text-xs font-medium rounded-full ${badgeColor}`}>
+        {year}
+      </span>
+    </div>
+    <h3 class={`text-xl font-bold text-gray-900 mb-3 group-hover:${textColor} transition-colors`}>
+      {title}
+    </h3>
+    <p class="text-gray-600 mb-4 line-clamp-3 flex-grow">
+      {summary}
+    </p>
+    <div class="flex items-center justify-between mt-auto">
+      <span class={`${textColor} font-medium group-hover:underline`}>
+        {t('blog.readMore')} →
+      </span>
+      <button class="px-4 py-2 bg-accent-600 text-white text-sm rounded hover:bg-accent-700 transition-colors font-medium">
+        {t('books.download')}
+      </button>
+    </div>
+  </div>
+</a>
+

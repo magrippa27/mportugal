@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import MainLayout from '../../../layouts/MainLayout.astro';
-import BookCard from '../../../components/BookCard.astro';
+import HorizontalBookCard from '../../../components/HorizontalBookCard.astro';
 import PostCard from '../../../components/PostCard.astro';
 import { type Language, useTranslations, languages } from '../../../i18n/utils';
 
@@ -43,60 +43,179 @@ const sortedPosts = radioPosts.sort((a, b) =>
         </p>
       </div>
 
+      <section class="mb-20 bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
+        <div class="bg-gradient-to-br from-primary-50 to-primary-100 p-8">
+          <div class="max-w-4xl mx-auto">
+            <div class="mb-6 rounded-lg overflow-hidden shadow-xl bg-gray-200">
+              <img 
+                src="/desk.webp" 
+                alt="Radio Station"
+                class="w-full h-auto object-cover"
+              />
+            </div>
+            <div class="text-center mb-8">
+              <h3 class="text-3xl font-bold text-gray-900 mb-2">Radio Operator</h3>
+              <p class="text-lg text-gray-600">Multi-band HF/VHF Operations</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-6">
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <h3 class="text-lg font-bold text-gray-900 mb-3 flex items-center">
+                <svg class="w-5 h-5 mr-2 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                Main Callsigns
+              </h3>
+              <div class="grid grid-cols-3 gap-3">
+                <div class="text-center p-3 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-md transition-shadow">
+                  <span class="text-2xl block mb-1">🇦🇴</span>
+                  <p class="font-mono text-sm font-bold text-primary-700">CR6IK</p>
+                  <p class="text-xs text-gray-600">Angola</p>
+                </div>
+                <div class="text-center p-3 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-md transition-shadow">
+                  <span class="text-2xl block mb-1">🇵🇹</span>
+                  <p class="font-mono text-sm font-bold text-primary-700">CT4IK</p>
+                  <p class="text-xs text-gray-600">Portugal</p>
+                </div>
+                <div class="text-center p-3 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-md transition-shadow">
+                  <span class="text-2xl block mb-1">🇦🇷</span>
+                  <p class="font-mono text-sm font-bold text-primary-700">LU5OM</p>
+                  <p class="text-xs text-gray-600">Argentina</p>
+                </div>
+              </div>
+
+              <h3 class="text-lg font-bold text-gray-900 mt-6 mb-3 flex items-center">
+                <svg class="w-5 h-5 mr-2 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+                Operating Location (LU5OM)
+              </h3>
+              <div class="grid grid-cols-2 gap-2">
+                <div class="p-2 bg-gray-50 rounded border border-gray-200">
+                  <p class="text-xs text-gray-600">QTH</p>
+                  <p class="text-sm font-semibold text-gray-900">Salta 🇦🇷</p>
+                </div>
+                <div class="p-2 bg-gray-50 rounded border border-gray-200">
+                  <p class="text-xs text-gray-600">Grid</p>
+                  <p class="text-sm font-mono font-bold text-primary-700">FG75HF</p>
+                </div>
+                <div class="p-2 bg-gray-50 rounded border border-gray-200">
+                  <p class="text-xs text-gray-600">DXCC</p>
+                  <p class="text-sm font-semibold text-gray-900">100</p>
+                </div>
+                <div class="p-2 bg-gray-50 rounded border border-gray-200">
+                  <p class="text-xs text-gray-600">ITU</p>
+                  <p class="text-sm font-semibold text-gray-900">14</p>
+                </div>
+                <div class="p-2 bg-gray-50 rounded border border-gray-200">
+                  <p class="text-xs text-gray-600">CQ Zone</p>
+                  <p class="text-sm font-semibold text-gray-900">13</p>
+                </div>
+                <div class="p-2 bg-gray-50 rounded border border-gray-200">
+                  <p class="text-xs text-gray-600">Class</p>
+                  <p class="text-sm font-semibold text-gray-900">Superior</p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="text-lg font-bold text-gray-900 mb-3 flex items-center">
+                <svg class="w-5 h-5 mr-2 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
+                </svg>
+                Station Equipment
+              </h3>
+              <div class="bg-gradient-to-r from-accent-50 to-accent-100 p-4 rounded-lg border border-accent-200">
+                <div class="space-y-2">
+                  <div class="flex items-start">
+                    <span class="font-semibold text-gray-700 text-sm min-w-[90px]">Transceiver:</span>
+                    <span class="text-gray-900 text-sm">Yaesu FT-891</span>
+                  </div>
+                  <div class="flex items-start">
+                    <span class="font-semibold text-gray-700 text-sm min-w-[90px]">Antennas:</span>
+                    <div class="flex-1 text-sm">
+                      <p class="text-gray-900">Multi-Band Sloping Dipole: 6-10-12-15-17-20</p>
+                      <p class="text-xs text-gray-600">Top @ 7.5m</p>
+                      <p class="text-gray-900 mt-1">Butternut HF2V: 40-80m</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <span class="font-semibold text-gray-700 text-sm min-w-[90px]">Power:</span>
+                    <div class="flex-1 text-sm">
+                      <p class="text-gray-900">CW/SSB: 100W • RTTY: 30W</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </section>
+
       {radioBooks.length > 0 && (
         <section class="mb-20">
-          <div class="flex justify-between items-center mb-8">
-            <h2 class="text-3xl font-bold text-gray-900">
-              {t('radio.booksSection')}
-            </h2>
-            <a 
-              href={`/${lang}/books`}
-              class="text-primary-700 hover:text-primary-900 font-medium underline"
-            >
-              {t('home.viewAllBooks')} →
-            </a>
-          </div>
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {radioBooks.map(book => (
-              <BookCard
-                title={book.data.title}
-                category={book.data.category}
-                coverImage={book.data.coverImage}
-                summary={book.data.summary}
-                slug={book.id}
-                lang={lang}
-                publicationDate={book.data.publicationDate}
-              />
-            ))}
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center mb-8">
+              <h2 class="text-3xl font-bold text-gray-900">
+                {t('radio.booksSection')}
+              </h2>
+              <a 
+                href={`/${lang}/books`}
+                class="text-primary-700 hover:text-primary-900 font-medium underline"
+              >
+                {t('home.viewAllBooks')} →
+              </a>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+              {radioBooks.map(book => (
+                <HorizontalBookCard
+                  title={book.data.title}
+                  category={book.data.category}
+                  coverImage={book.data.coverImage}
+                  summary={book.data.summary}
+                  slug={book.id}
+                  lang={lang}
+                  publicationDate={book.data.publicationDate}
+                  accentColor="primary"
+                />
+              ))}
+            </div>
           </div>
         </section>
       )}
 
       {sortedPosts.length > 0 && (
         <section>
-          <div class="flex justify-between items-center mb-8">
-            <h2 class="text-3xl font-bold text-gray-900">
-              {t('radio.articlesSection')}
-            </h2>
-            <a 
-              href={`/${lang}/blog/category/radio`}
-              class="text-primary-700 hover:text-primary-900 font-medium underline"
-            >
-              {t('home.viewAllPosts')} →
-            </a>
-          </div>
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {sortedPosts.map(post => (
-              <PostCard
-                title={post.data.title}
-                description={post.data.description}
-                pubDate={post.data.pubDate}
-                slug={post.id}
-                lang={lang}
-                categories={post.data.categories}
-                heroImage={post.data.heroImage}
-              />
-            ))}
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center mb-8">
+              <h2 class="text-3xl font-bold text-gray-900">
+                {t('radio.articlesSection')}
+              </h2>
+              <a 
+                href={`/${lang}/blog/category/radio`}
+                class="text-primary-700 hover:text-primary-900 font-medium underline"
+              >
+                {t('home.viewAllPosts')} →
+              </a>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {sortedPosts.map(post => (
+                <PostCard
+                  title={post.data.title}
+                  description={post.data.description}
+                  pubDate={post.data.pubDate}
+                  slug={post.id}
+                  lang={lang}
+                  categories={post.data.categories}
+                  heroImage={post.data.heroImage}
+                />
+              ))}
+            </div>
           </div>
         </section>
       )}

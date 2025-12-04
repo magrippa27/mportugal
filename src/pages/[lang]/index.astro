@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import MainLayout from '../../layouts/MainLayout.astro';
-import BookCard from '../../components/BookCard.astro';
+import HorizontalBookCard from '../../components/HorizontalBookCard.astro';
 import PostCard from '../../components/PostCard.astro';
 import { type Language, useTranslations, languages } from '../../i18n/utils';
 
@@ -105,9 +105,9 @@ const featuredBooks = allBooks
             {t('home.viewAllBooks')} →
           </a>
         </div>
-        <div class="grid md:grid-cols-3 gap-8">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {featuredBooks.map(book => (
-            <BookCard
+            <HorizontalBookCard
               title={book.data.title}
               category={book.data.category}
               coverImage={book.data.coverImage}

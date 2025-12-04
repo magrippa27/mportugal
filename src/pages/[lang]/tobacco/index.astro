@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import MainLayout from '../../../layouts/MainLayout.astro';
-import BookCard from '../../../components/BookCard.astro';
+import HorizontalBookCard from '../../../components/HorizontalBookCard.astro';
 import PostCard from '../../../components/PostCard.astro';
 import { type Language, useTranslations, languages } from '../../../i18n/utils';
 
@@ -45,58 +45,63 @@ const sortedPosts = tobaccoPosts.sort((a, b) =>
 
       {tobaccoBooks.length > 0 && (
         <section class="mb-20">
-          <div class="flex justify-between items-center mb-8">
-            <h2 class="text-3xl font-bold text-gray-900">
-              {t('tobacco.booksSection')}
-            </h2>
-            <a 
-              href={`/${lang}/books`}
-              class="text-primary-700 hover:text-primary-900 font-medium underline"
-            >
-              {t('home.viewAllBooks')} →
-            </a>
-          </div>
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {tobaccoBooks.map(book => (
-              <BookCard
-                title={book.data.title}
-                category={book.data.category}
-                coverImage={book.data.coverImage}
-                summary={book.data.summary}
-                slug={book.id}
-                lang={lang}
-                publicationDate={book.data.publicationDate}
-              />
-            ))}
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center mb-8">
+              <h2 class="text-3xl font-bold text-gray-900">
+                {t('tobacco.booksSection')}
+              </h2>
+              <a 
+                href={`/${lang}/books`}
+                class="text-primary-700 hover:text-primary-900 font-medium underline"
+              >
+                {t('home.viewAllBooks')} →
+              </a>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+              {tobaccoBooks.map(book => (
+                <HorizontalBookCard
+                  title={book.data.title}
+                  category={book.data.category}
+                  coverImage={book.data.coverImage}
+                  summary={book.data.summary}
+                  slug={book.id}
+                  lang={lang}
+                  publicationDate={book.data.publicationDate}
+                  accentColor="accent"
+                />
+              ))}
+            </div>
           </div>
         </section>
       )}
 
       {sortedPosts.length > 0 && (
         <section>
-          <div class="flex justify-between items-center mb-8">
-            <h2 class="text-3xl font-bold text-gray-900">
-              {t('tobacco.articlesSection')}
-            </h2>
-            <a 
-              href={`/${lang}/blog/category/tobacco`}
-              class="text-primary-700 hover:text-primary-900 font-medium underline"
-            >
-              {t('home.viewAllPosts')} →
-            </a>
-          </div>
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {sortedPosts.map(post => (
-              <PostCard
-                title={post.data.title}
-                description={post.data.description}
-                pubDate={post.data.pubDate}
-                slug={post.id}
-                lang={lang}
-                categories={post.data.categories}
-                heroImage={post.data.heroImage}
-              />
-            ))}
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center mb-8">
+              <h2 class="text-3xl font-bold text-gray-900">
+                {t('tobacco.articlesSection')}
+              </h2>
+              <a 
+                href={`/${lang}/blog/category/tobacco`}
+                class="text-primary-700 hover:text-primary-900 font-medium underline"
+              >
+                {t('home.viewAllPosts')} →
+              </a>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {sortedPosts.map(post => (
+                <PostCard
+                  title={post.data.title}
+                  description={post.data.description}
+                  pubDate={post.data.pubDate}
+                  slug={post.id}
+                  lang={lang}
+                  categories={post.data.categories}
+                  heroImage={post.data.heroImage}
+                />
+              ))}
+            </div>
           </div>
         </section>
       )}
