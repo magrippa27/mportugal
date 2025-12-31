@@ -1,0 +1,177 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  content: string;
+  link?: string;
+}
+
+const { title, subtitle, content, link } = Astro.props;
+const Component = link ? 'a' : 'div';
+---
+
+<Component href={link} class="tobacco-label-card">
+  <div class="label-frame">
+    <div class="ornate-border">
+      <div class="corner-flourish top-left">🍂</div>
+      <div class="corner-flourish top-right">🍂</div>
+      <div class="corner-flourish bottom-left">🍂</div>
+      <div class="corner-flourish bottom-right">🍂</div>
+      
+      <div class="label-content">
+        <div class="decorative-line top"></div>
+        
+        <h3 class="label-title">{title}</h3>
+        {subtitle && <p class="label-subtitle">{subtitle}</p>}
+        
+        <div class="label-divider">
+          <span class="divider-ornament">◆</span>
+        </div>
+        
+        <p class="label-text">{content}</p>
+        
+        <div class="decorative-line bottom"></div>
+      </div>
+    </div>
+  </div>
+</Component>
+
+<style>
+  .tobacco-label-card {
+    perspective: 1000px;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .tobacco-label-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .label-frame {
+    background: linear-gradient(135deg, #8b4513 0%, #5c2e1a 100%);
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 
+      0 10px 25px rgba(0, 0, 0, 0.4),
+      inset 0 2px 4px rgba(255, 255, 255, 0.1);
+    height: 100%;
+  }
+
+  .ornate-border {
+    background: linear-gradient(135deg, 
+      #f5e6d3 0%, 
+      #e8d4b8 50%,
+      #f5e6d3 100%
+    );
+    border: 4px solid #8b4513;
+    border-radius: 6px;
+    padding: 32px 24px;
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    box-shadow: 
+      inset 0 0 20px rgba(139, 69, 19, 0.1),
+      0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .ornate-border::before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 2px double #8b4513;
+    border-radius: 4px;
+    pointer-events: none;
+  }
+
+  .ornate-border::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(139, 69, 19, 0.02) 0px,
+      transparent 1px,
+      transparent 3px,
+      rgba(139, 69, 19, 0.02) 4px
+    );
+    pointer-events: none;
+  }
+
+  .corner-flourish {
+    position: absolute;
+    font-size: 28px;
+    opacity: 0.5;
+    filter: sepia(1) saturate(2) hue-rotate(-10deg);
+    z-index: 2;
+  }
+
+  .top-left { top: 16px; left: 16px; }
+  .top-right { top: 16px; right: 16px; }
+  .bottom-left { bottom: 16px; left: 16px; }
+  .bottom-right { bottom: 16px; right: 16px; }
+
+  .label-content {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+  }
+
+  .decorative-line {
+    height: 2px;
+    background: linear-gradient(90deg, 
+      transparent 0%,
+      #8b4513 20%,
+      #b8860b 50%,
+      #8b4513 80%,
+      transparent 100%
+    );
+    margin: 12px auto;
+    max-width: 80%;
+  }
+
+  .label-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #3d1f0f;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+    letter-spacing: 1px;
+    margin: 12px 0;
+    font-family: 'Open Sans', serif;
+  }
+
+  .label-subtitle {
+    font-size: 1rem;
+    font-style: italic;
+    color: #5c2e1a;
+    margin: 8px 0;
+  }
+
+  .label-divider {
+    margin: 16px 0;
+  }
+
+  .divider-ornament {
+    font-size: 1.2rem;
+    color: #b8860b;
+  }
+
+  .label-text {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #3d1f0f;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    .label-title {
+      font-size: 2.25rem;
+    }
+    
+    .label-text {
+      font-size: 1.1rem;
+    }
+  }
+</style>
+
