@@ -1,5 +1,5 @@
 ---
-import { type Language, useTranslations } from '../i18n/utils';
+import { type Language, useTranslations, getLocalizedUrl } from '../i18n/utils';
 
 interface Props {
   lang: Language;
@@ -8,16 +8,50 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const currentYear = new Date().getFullYear();
+
+const quickLinks = [
+  { href: '/radio', label: t('nav.radio') },
+  { href: '/tobacco', label: t('nav.tobacco') },
+  { href: '/books', label: t('nav.books') },
+  { href: '/blog', label: t('nav.blog') },
+  { href: '/about', label: t('nav.about') },
+];
 ---
 
-<footer class="bg-primary-900 text-gray-300 mt-auto">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="text-center">
-      <p class="text-lg mb-2 text-gray-200">{t('site.title')}</p>
-      <p class="text-sm text-gray-400 mb-4">{t('site.tagline')}</p>
-      <p class="text-sm text-gray-500">
-        © {currentYear} {t('site.title')}. {t('footer.copyright')}.
-      </p>
+<footer class="bg-neutral border-t-2 border-primary-300 mt-auto">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+      
+      <div class="flex flex-col items-center md:items-start">
+        <div class="flex items-center gap-2 text-lg font-bold text-gray-900 mb-2">
+          <span class="text-xl">🇦🇷</span>
+          <span>{t('site.title')}</span>
+          <span class="text-xl">🇵🇹</span>
+          <span class="text-gray-400 mx-2">|</span>
+          <span class="font-normal text-base text-gray-700">CR6IK - CT4IK - LU5OM</span>
+        </div>
+        <p class="text-sm text-gray-600">{t('site.tagline')}</p>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-x-6 gap-y-2">
+        {quickLinks.map(link => (
+          <a 
+            href={getLocalizedUrl(link.href, lang)}
+            class="text-sm text-gray-700 hover:text-primary-700 transition-colors font-medium"
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+
+      <div class="text-center md:text-right">
+        <p class="text-sm text-gray-600">
+          © {currentYear}
+        </p>
+        <p class="text-xs text-gray-500">
+          {t('footer.copyright')}
+        </p>
+      </div>
     </div>
   </div>
 </footer>

@@ -21,9 +21,31 @@ const t = useTranslations(lang);
 
 const allPostsCollection = (await getCollection('blog')) as any[];
 const allPosts = allPostsCollection.filter(post => post.data.language === lang);
-const latestPosts = allPosts
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 6);
+
+const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const latestPosts = [];
+const usedCategories = new Set();
+
+for (const post of sortedPosts) {
+  if (latestPosts.length >= 3) break;
+  
+  const primaryCategory = post.data.categories?.[0] || 'other';
+  
+  if (!usedCategories.has(primaryCategory)) {
+    latestPosts.push(post);
+    usedCategories.add(primaryCategory);
+  }
+}
+
+if (latestPosts.length < 3) {
+  for (const post of sortedPosts) {
+    if (latestPosts.length >= 3) break;
+    if (!latestPosts.includes(post)) {
+      latestPosts.push(post);
+    }
+  }
+}
 
 const allBooksCollection = (await getCollection('books' as any)) as any[];
 const allBooks = allBooksCollection.filter(book => book.data.language === lang);
@@ -50,7 +72,9 @@ const featuredBooks = allBooks
       <h1 class="text-5xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">
         {'Manuel Wilches'}
       </h1>
-   
+      <p class="text-2xl text-white mb-8 drop-shadow-md">
+        {'CR6IK - CT4IK - LU5OM'}
+      </p>
     </div>
   </section>
 

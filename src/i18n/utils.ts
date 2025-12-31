@@ -99,7 +99,7 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.blog': 'Blog',
     'nav.radio': 'Radio',
     'nav.tobacco': 'Tabaco',
-    'site.title': 'Nombre del Autor',
+    'site.title': 'Manuel de Portugal',
     'site.tagline': 'Autor e investigador en comunicación por radio y estudios del tabaco',
     'home.latestPosts': 'Últimas Publicaciones',
     'home.featuredBooks': 'Libros Destacados',

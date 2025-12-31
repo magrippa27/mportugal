@@ -13,6 +13,7 @@ interface Props {
 
 const { title, description, pubDate, slug, lang, heroImage } = Astro.props;
 const t = useTranslations(lang);
+const finalHeroImage = heroImage || '/placeholders/tobacco-post-default.jpg';
 
 const formattedDate = pubDate.toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', {
   year: 'numeric',
@@ -24,11 +25,9 @@ const formattedDate = pubDate.toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-U
 <article class="tobacco-post-card">
   <a href={`/${lang}/blog/${slug}`} class="vintage-post-frame">
     <div class="vintage-post-border">
-      {heroImage && (
-        <div class="post-image-wrapper">
-          <img src={heroImage} alt={title} class="post-image" />
-        </div>
-      )}
+      <div class="post-image-wrapper">
+        <img src={finalHeroImage} alt={title} class="post-image" />
+      </div>
       
       <div class="post-content">
         <time datetime={pubDate.toISOString()} class="post-date">{formattedDate}</time>

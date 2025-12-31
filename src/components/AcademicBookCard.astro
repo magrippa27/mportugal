@@ -14,15 +14,16 @@ interface Props {
 const { title, category, coverImage, summary, slug, lang, publicationDate } = Astro.props;
 const t = useTranslations(lang);
 const year = publicationDate.getFullYear();
+const finalCoverImage = coverImage || '/placeholders/other-book-default.jpg';
 ---
 
 <a href={`/${lang}/books/${slug}`} class="academic-book-card">
   <div class="light-wood-frame">
     <div class="light-wood-inner">
       <div class="card-frame">
-    <div class="book-layout">
-      <div class="cover-section">
-        <img src={coverImage} alt={title} class="book-cover" />
+      <div class="book-layout">
+        <div class="cover-section">
+          <img src={finalCoverImage} alt={title} class="book-cover" />
       </div>
       <div class="info-section">
         <div class="year-badge">{year}</div>

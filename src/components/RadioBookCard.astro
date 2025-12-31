@@ -14,6 +14,7 @@ interface Props {
 const { title, category, coverImage, summary, slug, lang, publicationDate } = Astro.props;
 const t = useTranslations(lang);
 const year = publicationDate.getFullYear();
+const finalCoverImage = coverImage || '/placeholders/radio-book-default.jpg';
 ---
 
 <a href={`/${lang}/books/${slug}`} class="radio-book-card">
@@ -27,7 +28,7 @@ const year = publicationDate.getFullYear();
         
         <div class="book-layout">
           <div class="cover-section">
-            <img src={coverImage} alt={title} class="book-cover" />
+            <img src={finalCoverImage} alt={title} class="book-cover" />
           </div>
           <div class="info-section">
             <div class="year-badge">{year}</div>
