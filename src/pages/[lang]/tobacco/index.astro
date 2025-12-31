@@ -32,16 +32,27 @@ const sortedPosts = tobaccoPosts.sort((a, b) =>
   description={t('tobacco.intro')}
   lang={lang}
 >
+  <section class="relative h-[400px] flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img 
+        src="/tobacco-1792070_1920.jpg" 
+        alt={t('tobacco.title')}
+        class="w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+    </div>
+    <div class="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+      <h1 class="text-5xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">
+        {t('tobacco.title')}
+      </h1>
+      <p class="text-xl md:text-2xl text-white drop-shadow-md">
+        {t('tobacco.intro')}
+      </p>
+    </div>
+  </section>
+
   <div class="py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h1 class="text-5xl font-bold text-gray-900 mb-6">
-          {t('tobacco.title')}
-        </h1>
-        <p class="text-2xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-          {t('tobacco.intro')}
-        </p>
-      </div>
 
       {tobaccoBooks.length > 0 && (
         <section class="mb-20">

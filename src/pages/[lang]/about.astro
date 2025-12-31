@@ -19,15 +19,24 @@ const aboutPage = aboutPages.find(p => p.id === `about.${lang}`);
   description={t('site.tagline')}
   lang={lang}
 >
+  <section class="relative h-[400px] flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img 
+        src="/MDEPORTUAL.jpg" 
+        alt={t('about.title')}
+        class="w-full h-full object-cover object-[center_30%]"
+      />
+      <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+    </div>
+    <div class="relative z-10 text-center px-4 sm:px-6 lg:px-8">
+      <h1 class="text-5xl md:text-6xl font-bold text-white drop-shadow-lg">
+        {t('about.title')}
+      </h1>
+    </div>
+  </section>
+
   <article class="py-16">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="mb-12 text-center">
-        <img 
-          src="/blog-placeholder-about.jpg" 
-          alt={t('site.title')}
-          class="w-64 h-64 rounded-full mx-auto mb-8 object-cover shadow-xl"
-        />
-      </div>
       
       {aboutPage && (
         <div class="prose prose-lg max-w-prose mx-auto prose-headings:font-bold prose-a:text-primary-700 prose-a:underline hover:prose-a:text-primary-900">
