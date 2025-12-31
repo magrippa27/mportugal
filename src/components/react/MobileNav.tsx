@@ -42,7 +42,7 @@ export default function MobileNav({ lang, navItems, currentPath }: Props) {
       {isOpen && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-50" onClick={() => setIsOpen(false)}>
           <div 
-            className="fixed top-0 right-0 bottom-0 w-64 bg-white shadow-xl p-6"
+            className="fixed top-0 right-0 bottom-0 w-64 bg-[#f5f3f0] shadow-xl p-6"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center mb-8">
