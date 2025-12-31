@@ -10,10 +10,10 @@ const t = useTranslations(lang);
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="bg-gray-900 text-gray-300 mt-auto">
+<footer class="bg-primary-900 text-gray-300 mt-auto">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="text-center">
-      <p class="text-lg mb-2">{t('site.title')}</p>
+      <p class="text-lg mb-2 text-gray-200">{t('site.title')}</p>
       <p class="text-sm text-gray-400 mb-4">{t('site.tagline')}</p>
       <p class="text-sm text-gray-500">
         © {currentYear} {t('site.title')}. {t('footer.copyright')}.

@@ -1,0 +1,227 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  date?: string;
+}
+
+const { title, description, date } = Astro.props;
+---
+
+<div class="radio-award">
+  <div class="plaque-frame">
+    <div class="wood-texture">
+      <div class="plaque-inner">
+        <div class="gold-plate top-plate">
+          <div class="screw screw-tl"></div>
+          <div class="screw screw-tr"></div>
+          <div class="screw screw-bl"></div>
+          <div class="screw screw-br"></div>
+          <div class="plate-border">
+            <h3 class="award-title">{title}</h3>
+          </div>
+        </div>
+
+        <div class="gold-plate bottom-plate">
+          <div class="screw screw-tl"></div>
+          <div class="screw screw-tr"></div>
+          <div class="screw screw-bl"></div>
+          <div class="screw screw-br"></div>
+          <div class="plate-border">
+            <p class="award-description">{description}</p>
+            {date && <p class="award-date">{date}</p>}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .radio-award {
+    perspective: 1000px;
+  }
+
+  .plaque-frame {
+    background: linear-gradient(135deg, #5c4033 0%, #3d2817 50%, #5c4033 100%);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 
+      0 10px 25px rgba(0, 0, 0, 0.4),
+      inset 0 2px 4px rgba(255, 255, 255, 0.1),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+    position: relative;
+    transform: translateZ(0);
+  }
+
+  .plaque-frame::before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    background-image: 
+      repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.03) 0px,
+        transparent 1px,
+        transparent 3px,
+        rgba(0, 0, 0, 0.03) 4px
+      ),
+      repeating-linear-gradient(
+        3deg,
+        rgba(0, 0, 0, 0.02) 0px,
+        transparent 2px,
+        transparent 8px,
+        rgba(0, 0, 0, 0.02) 10px
+      ),
+      repeating-linear-gradient(
+        -2deg,
+        rgba(92, 64, 51, 0.1) 0px,
+        transparent 3px,
+        transparent 12px,
+        rgba(92, 64, 51, 0.1) 15px
+      ),
+      repeating-linear-gradient(
+        1deg,
+        rgba(0, 0, 0, 0.04) 0px,
+        transparent 1px,
+        transparent 5px,
+        rgba(0, 0, 0, 0.04) 6px
+      );
+    border-radius: 4px;
+    pointer-events: none;
+  }
+
+  .wood-texture {
+    background: 
+      linear-gradient(180deg, 
+        rgba(92, 64, 51, 0.3) 0%, 
+        rgba(61, 40, 23, 0.5) 50%, 
+        rgba(92, 64, 51, 0.3) 100%
+      );
+    border-radius: 4px;
+    padding: 24px 20px;
+    position: relative;
+  }
+
+  .plaque-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .gold-plate {
+    background: linear-gradient(135deg, 
+      #b8860b 0%, 
+      #daa520 20%,
+      #b8860b 40%,
+      #a87c0a 60%,
+      #b8860b 80%,
+      #daa520 100%
+    );
+    border: 2px solid #8b6914;
+    border-radius: 4px;
+    padding: 12px 20px;
+    width: 100%;
+    box-shadow: 
+      0 4px 8px rgba(0, 0, 0, 0.4),
+      inset 0 1px 2px rgba(255, 223, 128, 0.5),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.3);
+    position: relative;
+  }
+
+  .gold-plate::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border: 1px solid rgba(218, 165, 32, 0.4);
+    border-radius: 2px;
+    pointer-events: none;
+  }
+
+  .screw {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: radial-gradient(circle at 30% 30%, 
+      #daa520 0%, 
+      #b8860b 50%, 
+      #8b6914 100%
+    );
+    border-radius: 50%;
+    box-shadow: 
+      inset 0 1px 2px rgba(255, 255, 255, 0.3),
+      inset 0 -1px 1px rgba(0, 0, 0, 0.5),
+      0 1px 2px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+  }
+
+  .screw::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 4px;
+    height: 0.5px;
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+  }
+
+  .screw-tl { top: 6px; left: 6px; }
+  .screw-tr { top: 6px; right: 6px; }
+  .screw-bl { bottom: 6px; left: 6px; }
+  .screw-br { bottom: 6px; right: 6px; }
+
+  .plate-border {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .award-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a1000;
+    text-shadow: 
+      0 1px 0 rgba(255, 255, 255, 0.3),
+      0 -1px 0 rgba(0, 0, 0, 0.5);
+    letter-spacing: 0.5px;
+    margin: 0;
+  }
+
+  .award-description {
+    font-size: 0.875rem;
+    line-height: 1.4;
+    color: #1a1000;
+    text-shadow: 
+      0 1px 0 rgba(255, 255, 255, 0.2),
+      0 -1px 0 rgba(0, 0, 0, 0.4);
+    margin: 0 0 6px 0;
+    font-weight: 500;
+  }
+
+  .award-date {
+    font-size: 0.75rem;
+    color: #2d1a00;
+    font-style: italic;
+    margin: 0;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+
+  @media (min-width: 768px) {
+    .award-title {
+      font-size: 1.75rem;
+    }
+    
+    .award-description {
+      font-size: 0.95rem;
+    }
+    
+    .award-icon {
+      width: 56px;
+      height: 56px;
+    }
+  }
+</style>
+

@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import MainLayout from '../../layouts/MainLayout.astro';
+import CopyEmailButton from '../../components/react/CopyEmailButton';
 import { type Language, useTranslations, languages } from '../../i18n/utils';
 
 export async function getStaticPaths() {
@@ -10,8 +11,7 @@ export async function getStaticPaths() {
 const { lang } = Astro.params as { lang: Language };
 const t = useTranslations(lang);
 
-const aboutPages = await getCollection('page');
-const aboutPage = aboutPages.find(p => p.id === `about.${lang}`);
+const email = "contact@example.com";
 ---
 
 <MainLayout 
@@ -35,15 +35,76 @@ const aboutPage = aboutPages.find(p => p.id === `about.${lang}`);
     </div>
   </section>
 
-  <article class="py-16">
+  <section class="py-16 bg-neutral">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      {aboutPage && (
-        <div class="prose prose-lg max-w-prose mx-auto prose-headings:font-bold prose-a:text-primary-700 prose-a:underline hover:prose-a:text-primary-900">
-          <div set:html={aboutPage.body} />
+      <div class="bg-white rounded-lg border-2 border-gray-300 p-8 md:p-12 shadow-md">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">
+          {lang === 'en' ? 'Biography' : 'Biografía'}
+        </h2>
+        <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed space-y-4">
+          {lang === 'en' ? (
+            <>
+              <p>
+                Manuel de Portugal is a distinguished scholar, researcher, and author with decades of experience in telecommunications and tobacco history. His work bridges the technical precision of amateur radio operations with the meticulous research of historical analysis.
+              </p>
+              <p>
+                Licensed as an amateur radio operator in multiple countries, including Angola (CR6IK), Portugal (CT4IK), and Argentina (LU5OM), he has contributed significantly to the global amateur radio community through both practical operations and technical documentation.
+              </p>
+              <p>
+                His research on tobacco history has produced several authoritative publications, combining rigorous academic methodology with accessible writing that appeals to both scholars and general readers interested in the cultural and economic impact of tobacco in Latin America and the Iberian Peninsula.
+              </p>
+              <p>
+                Currently based in Salta, Argentina, he continues his research and maintains active participation in the international amateur radio community while developing new publications on both subjects of his expertise.
+              </p>
+            </>
+          ) : (
+            <>
+              <p>
+                Manuel de Portugal es un distinguido académico, investigador y autor con décadas de experiencia en telecomunicaciones e historia del tabaco. Su trabajo une la precisión técnica de las operaciones de radioaficionados con el análisis histórico meticuloso.
+              </p>
+              <p>
+                Licenciado como operador de radioaficionado en múltiples países, incluyendo Angola (CR6IK), Portugal (CT4IK) y Argentina (LU5OM), ha contribuido significativamente a la comunidad global de radioaficionados a través de operaciones prácticas y documentación técnica.
+              </p>
+              <p>
+                Su investigación sobre la historia del tabaco ha producido varias publicaciones autorizadas, combinando metodología académica rigurosa con escritura accesible que atrae tanto a académicos como a lectores generales interesados en el impacto cultural y económico del tabaco en América Latina y la Península Ibérica.
+              </p>
+              <p>
+                Actualmente radicado en Salta, Argentina, continúa su investigación y mantiene participación activa en la comunidad internacional de radioaficionados mientras desarrolla nuevas publicaciones sobre ambos temas de su especialización.
+              </p>
+            </>
+          )}
         </div>
-      )}
+      </div>
     </div>
-  </article>
+  </section>
+
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-primary-50 rounded-lg border-2 border-primary-300 p-8 md:p-12 text-center shadow-md">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">
+          {lang === 'en' ? 'Contact' : 'Contacto'}
+        </h2>
+        <p class="text-xl text-gray-700 mb-6">
+          {lang === 'en' 
+            ? 'For inquiries, collaborations, or more information about my work:' 
+            : 'Para consultas, colaboraciones o más información sobre mi trabajo:'}
+        </p>
+        <div class="flex flex-col items-center gap-4">
+          <a 
+            href={`mailto:${email}`}
+            class="text-2xl font-mono font-semibold text-primary-700 hover:text-primary-900 transition-colors"
+          >
+            {email}
+          </a>
+          <CopyEmailButton 
+            email={email}
+            label={lang === 'en' ? 'Copy Email' : 'Copiar Email'}
+            copiedLabel={lang === 'en' ? 'Copied!' : '¡Copiado!'}
+            client:load
+          />
+        </div>
+      </div>
+    </div>
+  </section>
 </MainLayout>
 

@@ -41,7 +41,7 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.blog': 'Blog',
     'nav.radio': 'Radio',
     'nav.tobacco': 'Tobacco',
-    'site.title': 'Author Name',
+    'site.title': 'Manuel de Portugal',
     'site.tagline': 'Author and researcher in radio communication and tobacco studies',
     'home.latestPosts': 'Latest Posts',
     'home.featuredBooks': 'Featured Books',
