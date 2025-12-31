@@ -1,0 +1,126 @@
+---
+import { type Language } from '../i18n/utils';
+
+interface Props {
+  lang: Language;
+  currentPath: string;
+}
+
+const { lang, currentPath } = Astro.props;
+
+const switchToLang = lang === 'en' ? 'es' : 'en';
+const switchPath = currentPath.replace(`/${lang}/`, `/${switchToLang}/`).replace(`/${lang}`, `/${switchToLang}`);
+---
+
+<div class="language-dropdown">
+  <button class="dropdown-trigger" aria-label="Change language">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+    </svg>
+    <span class="current-lang">{lang.toUpperCase()}</span>
+    <svg class="w-4 h-4 chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+    </svg>
+  </button>
+  
+  <div class="dropdown-menu">
+    <a href={switchPath} class="dropdown-item">
+      <span class="flag">{switchToLang === 'en' ? '🇬🇧' : '🇪🇸'}</span>
+      <span class="lang-name">{switchToLang === 'en' ? 'English' : 'Español'}</span>
+    </a>
+  </div>
+</div>
+
+<style>
+  .language-dropdown {
+    position: relative;
+  }
+
+  .dropdown-trigger {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: white;
+    border: 2px solid #d1d5db;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #374151;
+    font-weight: 500;
+  }
+
+  .dropdown-trigger:hover {
+    border-color: #4a5b75;
+    background: #f9fafb;
+  }
+
+  .dropdown-trigger:focus {
+    outline: none;
+    border-color: #4a5b75;
+    box-shadow: 0 0 0 3px rgba(74, 91, 117, 0.1);
+  }
+
+  .current-lang {
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .chevron {
+    transition: transform 0.2s;
+  }
+
+  .dropdown-trigger:hover .chevron {
+    transform: translateY(2px);
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 160px;
+    background: white;
+    border: 2px solid #d1d5db;
+    border-radius: 6px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: all 0.2s;
+    z-index: 100;
+  }
+
+  .language-dropdown:hover .dropdown-menu,
+  .language-dropdown:focus-within .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    color: #374151;
+    text-decoration: none;
+    transition: background 0.2s;
+    border-radius: 4px;
+    margin: 4px;
+  }
+
+  .dropdown-item:hover {
+    background: #f3f4f6;
+    color: #4a5b75;
+  }
+
+  .flag {
+    font-size: 1.25rem;
+  }
+
+  .lang-name {
+    font-weight: 500;
+    font-size: 0.9375rem;
+  }
+</style>
+

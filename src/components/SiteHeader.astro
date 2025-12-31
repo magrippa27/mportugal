@@ -1,6 +1,6 @@
 ---
 import { type Language, useTranslations, getLocalizedUrl } from '../i18n/utils';
-import LanguageSwitcher from './LanguageSwitcher.astro';
+import LanguageDropdown from './LanguageDropdown.astro';
 import MobileNav from './react/MobileNav';
 
 interface Props {
@@ -23,8 +23,13 @@ const navItems = [
 <header class="bg-neutral border-b-2 border-primary-300 sticky top-0 z-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-20">
-      <a href={getLocalizedUrl('/', lang)} class="text-2xl font-bold text-gray-900 hover:text-primary-700 transition-colors">
-        {t('site.title')}
+      <a href={getLocalizedUrl('/', lang)} class="flex items-center gap-2 md:gap-3 text-xl md:text-2xl font-bold text-gray-900 hover:text-primary-700 transition-colors">
+        <span class="text-xl md:text-2xl">🇦🇷</span>
+        <span class="hidden sm:inline">{t('site.title')}</span>
+        <span class="sm:hidden text-lg">M. Portugal</span>
+        <span class="text-xl md:text-2xl">🇵🇹</span>
+        <span class="text-gray-400 mx-1 md:mx-2">|</span>
+        <span class="font-normal text-base md:text-xl text-gray-700">LU5OM</span>
       </a>
       
       <nav class="hidden md:flex items-center space-x-8">
@@ -36,7 +41,7 @@ const navItems = [
             {item.label}
           </a>
         ))}
-        <LanguageSwitcher lang={lang} currentPath={Astro.url.pathname} />
+        <LanguageDropdown lang={lang} currentPath={Astro.url.pathname} />
       </nav>
       
       <div class="md:hidden">
