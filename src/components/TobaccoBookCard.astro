@@ -1,0 +1,144 @@
+---
+import { type Language, useTranslations } from '../i18n/utils';
+
+interface Props {
+  title: string;
+  category: string;
+  coverImage: string;
+  summary: string;
+  slug: string;
+  lang: Language;
+  publicationDate: Date;
+}
+
+const { title, category, coverImage, summary, slug, lang, publicationDate } = Astro.props;
+const t = useTranslations(lang);
+const year = publicationDate.getFullYear();
+---
+
+<a href={`/${lang}/books/${slug}`} class="tobacco-book-card">
+  <div class="vintage-frame">
+    <div class="vintage-border">
+      <div class="book-layout">
+        <div class="cover-section">
+          <img src={coverImage} alt={title} class="book-cover" />
+        </div>
+        <div class="info-section">
+          <div class="year-badge">{year}</div>
+          <h3 class="book-title">{title}</h3>
+          <div class="ornamental-divider">◆</div>
+          <p class="book-summary">{summary}</p>
+          <div class="view-button">{t('blog.readMore')} →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</a>
+
+<style>
+  .tobacco-book-card {
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .tobacco-book-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .vintage-frame {
+    background: linear-gradient(135deg, #8b4513 0%, #5c2e1a 100%);
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    height: 100%;
+  }
+
+  .vintage-border {
+    background: linear-gradient(135deg, #f5e6d3 0%, #e8d4b8 50%, #f5e6d3 100%);
+    border: 3px solid #8b4513;
+    border-radius: 6px;
+    padding: 16px;
+    position: relative;
+    height: 100%;
+  }
+
+  .vintage-border::before {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 1px double #8b4513;
+    border-radius: 4px;
+    pointer-events: none;
+  }
+
+
+  .book-layout {
+    display: flex;
+    gap: 16px;
+    height: 100%;
+  }
+
+  .cover-section {
+    flex-shrink: 0;
+  }
+
+  .book-cover {
+    width: 120px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .info-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .year-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: #8b4513;
+    color: #f5e6d3;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    width: fit-content;
+    margin-bottom: 8px;
+  }
+
+  .book-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #3d1f0f;
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+  }
+
+  .ornamental-divider {
+    color: #b8860b;
+    font-size: 0.875rem;
+    margin: 8px 0;
+  }
+
+  .book-summary {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #5c2e1a;
+    margin: 0 0 12px 0;
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .view-button {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #8b4513;
+    text-decoration: underline;
+  }
+</style>
+

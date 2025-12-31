@@ -1,7 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import MainLayout from '../../../../layouts/MainLayout.astro';
-import PostCard from '../../../../components/PostCard.astro';
+import RadioPostCard from '../../../../components/RadioPostCard.astro';
+import TobaccoPostCard from '../../../../components/TobaccoPostCard.astro';
+import AcademicPostCard from '../../../../components/AcademicPostCard.astro';
 import { type Language, useTranslations, languages } from '../../../../i18n/utils';
 
 export async function getStaticPaths() {
@@ -54,17 +56,25 @@ const sortedPosts = allPosts.sort((a, b) =>
       </p>
       
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {sortedPosts.map(post => (
-          <PostCard
-            title={post.data.title}
-            description={post.data.description}
-            pubDate={post.data.pubDate}
-            slug={post.id}
-            lang={lang}
-            categories={post.data.categories}
-            heroImage={post.data.heroImage}
-          />
-        ))}
+        {sortedPosts.map(post => {
+          const PostComponent = category === 'radio' 
+            ? RadioPostCard 
+            : category === 'tobacco' 
+              ? TobaccoPostCard 
+              : AcademicPostCard;
+          
+          return (
+            <PostComponent
+              title={post.data.title}
+              description={post.data.description}
+              pubDate={post.data.pubDate}
+              slug={post.id}
+              lang={lang}
+              categories={post.data.categories}
+              heroImage={post.data.heroImage}
+            />
+          );
+        })}
       </div>
     </div>
   </div>

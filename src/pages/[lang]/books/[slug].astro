@@ -2,7 +2,9 @@
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import MainLayout from '../../../layouts/MainLayout.astro';
-import BookCard from '../../../components/BookCard.astro';
+import RadioBookCard from '../../../components/RadioBookCard.astro';
+import TobaccoBookCard from '../../../components/TobaccoBookCard.astro';
+import AcademicBookCard from '../../../components/AcademicBookCard.astro';
 import { type Language, useTranslations, languages } from '../../../i18n/utils';
 
 export async function getStaticPaths() {
@@ -108,17 +110,25 @@ const formattedDate = book.data.publicationDate.toLocaleDateString(
             {t('books.relatedBooks')}
           </h2>
           <div class="grid md:grid-cols-3 gap-8">
-            {relatedBooks.map(relatedBook => (
-              <BookCard
-                title={relatedBook.data.title}
-                category={relatedBook.data.category}
-                coverImage={relatedBook.data.coverImage}
-                summary={relatedBook.data.summary}
-                slug={relatedBook.id}
-                lang={lang}
-                publicationDate={relatedBook.data.publicationDate}
-              />
-            ))}
+            {relatedBooks.map(relatedBook => {
+              const BookComponent = relatedBook.data.category === 'radio' 
+                ? RadioBookCard 
+                : relatedBook.data.category === 'tobacco' 
+                  ? TobaccoBookCard 
+                  : AcademicBookCard;
+              
+              return (
+                <BookComponent
+                  title={relatedBook.data.title}
+                  category={relatedBook.data.category}
+                  coverImage={relatedBook.data.coverImage}
+                  summary={relatedBook.data.summary}
+                  slug={relatedBook.id}
+                  lang={lang}
+                  publicationDate={relatedBook.data.publicationDate}
+                />
+              );
+            })}
           </div>
         </div>
       )}

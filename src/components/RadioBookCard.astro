@@ -1,0 +1,184 @@
+---
+import { type Language, useTranslations } from '../i18n/utils';
+
+interface Props {
+  title: string;
+  category: string;
+  coverImage: string;
+  summary: string;
+  slug: string;
+  lang: Language;
+  publicationDate: Date;
+}
+
+const { title, category, coverImage, summary, slug, lang, publicationDate } = Astro.props;
+const t = useTranslations(lang);
+const year = publicationDate.getFullYear();
+---
+
+<a href={`/${lang}/books/${slug}`} class="radio-book-card">
+  <div class="wood-frame">
+    <div class="wood-inner">
+      <div class="gold-content">
+        <div class="mini-screw screw-tl"></div>
+        <div class="mini-screw screw-tr"></div>
+        <div class="mini-screw screw-bl"></div>
+        <div class="mini-screw screw-br"></div>
+        
+        <div class="book-layout">
+          <div class="cover-section">
+            <img src={coverImage} alt={title} class="book-cover" />
+          </div>
+          <div class="info-section">
+            <div class="year-badge">{year}</div>
+            <h3 class="book-title">{title}</h3>
+            <p class="book-summary">{summary}</p>
+            <div class="view-button">{t('blog.readMore')} →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</a>
+
+<style>
+  .radio-book-card {
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .radio-book-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .wood-frame {
+    background: linear-gradient(135deg, #5c4033 0%, #3d2817 50%, #5c4033 100%);
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+    height: 100%;
+  }
+
+  .wood-frame::before {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    background-image: 
+      repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.03) 0px, transparent 1px, transparent 3px, rgba(0, 0, 0, 0.03) 4px),
+      repeating-linear-gradient(3deg, rgba(0, 0, 0, 0.02) 0px, transparent 2px, transparent 8px, rgba(0, 0, 0, 0.02) 10px);
+    border-radius: 4px;
+    pointer-events: none;
+  }
+
+  .wood-inner {
+    background: linear-gradient(180deg, rgba(92, 64, 51, 0.3) 0%, rgba(61, 40, 23, 0.5) 50%, rgba(92, 64, 51, 0.3) 100%);
+    border-radius: 4px;
+    padding: 12px;
+    height: 100%;
+  }
+
+  .gold-content {
+    background: linear-gradient(135deg, #b8b8b8 0%, #d4d4d4 20%, #b8b8b8 40%, #a0a0a0 60%, #b8b8b8 80%, #d4d4d4 100%);
+    border: 2px solid #808080;
+    border-radius: 4px;
+    padding: 16px;
+    position: relative;
+    height: 100%;
+    box-shadow: 
+      0 4px 8px rgba(0, 0, 0, 0.4),
+      inset 0 1px 2px rgba(255, 255, 255, 0.7);
+  }
+
+  .mini-screw {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: radial-gradient(circle at 30% 30%, #d4d4d4 0%, #b8b8b8 50%, #808080 100%);
+    border-radius: 50%;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.5), inset 0 -1px 1px rgba(0, 0, 0, 0.5);
+    z-index: 2;
+  }
+
+  .mini-screw::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 3px;
+    height: 0.5px;
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  .screw-tl { top: 6px; left: 6px; }
+  .screw-tr { top: 6px; right: 6px; }
+  .screw-bl { bottom: 6px; left: 6px; }
+  .screw-br { bottom: 6px; right: 6px; }
+
+  .book-layout {
+    display: flex;
+    gap: 16px;
+    height: 100%;
+  }
+
+  .cover-section {
+    flex-shrink: 0;
+  }
+
+  .book-cover {
+    width: 120px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .info-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .year-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(0, 0, 0, 0.2);
+    color: #1a1000;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    width: fit-content;
+    margin-bottom: 8px;
+  }
+
+  .book-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1a1000;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3), 0 -1px 0 rgba(0, 0, 0, 0.5);
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+  }
+
+  .book-summary {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #2d1a00;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+    margin: 0 0 12px 0;
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .view-button {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #1a1000;
+    text-decoration: underline;
+  }
+</style>
+

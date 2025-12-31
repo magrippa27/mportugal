@@ -2,7 +2,9 @@
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import MainLayout from '../../../layouts/MainLayout.astro';
-import HorizontalBookCard from '../../../components/HorizontalBookCard.astro';
+import RadioBookCard from '../../../components/RadioBookCard.astro';
+import TobaccoBookCard from '../../../components/TobaccoBookCard.astro';
+import AcademicBookCard from '../../../components/AcademicBookCard.astro';
 import { type Language, useTranslations, languages } from '../../../i18n/utils';
 
 export async function getStaticPaths() {
@@ -51,20 +53,19 @@ const booksByCategory = {
           <h2 class="text-3xl font-bold text-gray-900 mb-8">
             {t('books.category.radio')}
           </h2>
-          <div class="grid md:grid-cols-2 gap-8">
-            {booksByCategory.radio.map(book => (
-              <HorizontalBookCard
-                title={book.data.title}
-                category={book.data.category}
-                coverImage={book.data.coverImage}
-                summary={book.data.summary}
-                slug={book.id}
-                lang={lang}
-                publicationDate={book.data.publicationDate}
-                accentColor="primary"
-              />
-            ))}
-          </div>
+            <div class="grid md:grid-cols-2 gap-8">
+              {booksByCategory.radio.map(book => (
+                <RadioBookCard
+                  title={book.data.title}
+                  category={book.data.category}
+                  coverImage={book.data.coverImage}
+                  summary={book.data.summary}
+                  slug={book.id}
+                  lang={lang}
+                  publicationDate={book.data.publicationDate}
+                />
+              ))}
+            </div>
         </section>
       )}
 
@@ -73,20 +74,19 @@ const booksByCategory = {
           <h2 class="text-3xl font-bold text-gray-900 mb-8">
             {t('books.category.tobacco')}
           </h2>
-          <div class="grid md:grid-cols-2 gap-8">
-            {booksByCategory.tobacco.map(book => (
-              <HorizontalBookCard
-                title={book.data.title}
-                category={book.data.category}
-                coverImage={book.data.coverImage}
-                summary={book.data.summary}
-                slug={book.id}
-                lang={lang}
-                publicationDate={book.data.publicationDate}
-                accentColor="accent"
-              />
-            ))}
-          </div>
+            <div class="grid md:grid-cols-2 gap-8">
+              {booksByCategory.tobacco.map(book => (
+                <TobaccoBookCard
+                  title={book.data.title}
+                  category={book.data.category}
+                  coverImage={book.data.coverImage}
+                  summary={book.data.summary}
+                  slug={book.id}
+                  lang={lang}
+                  publicationDate={book.data.publicationDate}
+                />
+              ))}
+            </div>
         </section>
       )}
 
@@ -95,19 +95,19 @@ const booksByCategory = {
           <h2 class="text-3xl font-bold text-gray-900 mb-8">
             {t('books.category.other')}
           </h2>
-          <div class="grid md:grid-cols-2 gap-8">
-            {booksByCategory.other.map(book => (
-              <HorizontalBookCard
-                title={book.data.title}
-                category={book.data.category}
-                coverImage={book.data.coverImage}
-                summary={book.data.summary}
-                slug={book.id}
-                lang={lang}
-                publicationDate={book.data.publicationDate}
-              />
-            ))}
-          </div>
+            <div class="grid md:grid-cols-2 gap-8">
+              {booksByCategory.other.map(book => (
+                <AcademicBookCard
+                  title={book.data.title}
+                  category={book.data.category}
+                  coverImage={book.data.coverImage}
+                  summary={book.data.summary}
+                  slug={book.id}
+                  lang={lang}
+                  publicationDate={book.data.publicationDate}
+                />
+              ))}
+            </div>
         </section>
       )}
     </div>

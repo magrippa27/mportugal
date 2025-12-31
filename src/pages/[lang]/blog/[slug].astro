@@ -1,7 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import MainLayout from '../../../layouts/MainLayout.astro';
-import PostCard from '../../../components/PostCard.astro';
+import RadioPostCard from '../../../components/RadioPostCard.astro';
+import TobaccoPostCard from '../../../components/TobaccoPostCard.astro';
+import AcademicPostCard from '../../../components/AcademicPostCard.astro';
 import { type Language, useTranslations } from '../../../i18n/utils';
 
 export async function getStaticPaths() {
@@ -99,17 +101,27 @@ const formattedDate = post.data.pubDate.toLocaleDateString(
           {t('blog.relatedPosts')}
         </h2>
         <div class="grid md:grid-cols-3 gap-8">
-          {relatedPosts.map(relatedPost => (
-            <PostCard
-              title={relatedPost.data.title}
-              description={relatedPost.data.description}
-              pubDate={relatedPost.data.pubDate}
-              slug={relatedPost.id}
-              lang={lang}
-              categories={relatedPost.data.categories}
-              heroImage={relatedPost.data.heroImage}
-            />
-          ))}
+          {relatedPosts.map(relatedPost => {
+            const hasRadio = relatedPost.data.categories?.includes('radio');
+            const hasTobacco = relatedPost.data.categories?.includes('tobacco');
+            const PostComponent = hasRadio 
+              ? RadioPostCard 
+              : hasTobacco 
+                ? TobaccoPostCard 
+                : AcademicPostCard;
+            
+            return (
+              <PostComponent
+                title={relatedPost.data.title}
+                description={relatedPost.data.description}
+                pubDate={relatedPost.data.pubDate}
+                slug={relatedPost.id}
+                lang={lang}
+                categories={relatedPost.data.categories}
+                heroImage={relatedPost.data.heroImage}
+              />
+            );
+          })}
         </div>
       </div>
     </section>

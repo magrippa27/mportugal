@@ -2,8 +2,8 @@
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import MainLayout from '../../../layouts/MainLayout.astro';
-import HorizontalBookCard from '../../../components/HorizontalBookCard.astro';
-import PostCard from '../../../components/PostCard.astro';
+import RadioBookCard from '../../../components/RadioBookCard.astro';
+import RadioPostCard from '../../../components/RadioPostCard.astro';
 import RadioAward from '../../../components/RadioAward.astro';
 import { type Language, useTranslations, languages } from '../../../i18n/utils';
 
@@ -266,20 +266,19 @@ const awards = [
                 {t('home.viewAllBooks')} →
               </a>
             </div>
-            <div class="grid md:grid-cols-2 gap-8">
-              {radioBooks.map(book => (
-                <HorizontalBookCard
-                  title={book.data.title}
-                  category={book.data.category}
-                  coverImage={book.data.coverImage}
-                  summary={book.data.summary}
-                  slug={book.id}
-                  lang={lang}
-                  publicationDate={book.data.publicationDate}
-                  accentColor="primary"
-                />
-              ))}
-            </div>
+              <div class="grid md:grid-cols-2 gap-8">
+                {radioBooks.map(book => (
+                  <RadioBookCard
+                    title={book.data.title}
+                    category={book.data.category}
+                    coverImage={book.data.coverImage}
+                    summary={book.data.summary}
+                    slug={book.id}
+                    lang={lang}
+                    publicationDate={book.data.publicationDate}
+                  />
+                ))}
+              </div>
           </div>
         </section>
       )}
@@ -298,19 +297,19 @@ const awards = [
                 {t('home.viewAllPosts')} →
               </a>
             </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {sortedPosts.map(post => (
-                <PostCard
-                  title={post.data.title}
-                  description={post.data.description}
-                  pubDate={post.data.pubDate}
-                  slug={post.id}
-                  lang={lang}
-                  categories={post.data.categories}
-                  heroImage={post.data.heroImage}
-                />
-              ))}
-            </div>
+              <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {sortedPosts.map(post => (
+                  <RadioPostCard
+                    title={post.data.title}
+                    description={post.data.description}
+                    pubDate={post.data.pubDate}
+                    slug={post.id}
+                    lang={lang}
+                    categories={post.data.categories}
+                    heroImage={post.data.heroImage}
+                  />
+                ))}
+              </div>
           </div>
         </section>
       )}

@@ -1,0 +1,142 @@
+---
+import { type Language, useTranslations } from '../i18n/utils';
+
+interface Props {
+  title: string;
+  category: string;
+  coverImage: string;
+  summary: string;
+  slug: string;
+  lang: Language;
+  publicationDate: Date;
+}
+
+const { title, category, coverImage, summary, slug, lang, publicationDate } = Astro.props;
+const t = useTranslations(lang);
+const year = publicationDate.getFullYear();
+---
+
+<a href={`/${lang}/books/${slug}`} class="academic-book-card">
+  <div class="light-wood-frame">
+    <div class="light-wood-inner">
+      <div class="card-frame">
+    <div class="book-layout">
+      <div class="cover-section">
+        <img src={coverImage} alt={title} class="book-cover" />
+      </div>
+      <div class="info-section">
+        <div class="year-badge">{year}</div>
+        <h3 class="book-title">{title}</h3>
+        <p class="book-summary">{summary}</p>
+        <div class="view-button">{t('blog.readMore')} →</div>
+      </div>
+    </div>
+  </div>
+    </div>
+  </div>
+</a>
+
+<style>
+  .academic-book-card {
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .academic-book-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .light-wood-frame {
+    background: linear-gradient(135deg, #8b7355 0%, #6d563d 50%, #8b7355 100%);
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    position: relative;
+  }
+
+
+  .light-wood-inner {
+    background: linear-gradient(180deg, rgba(139, 115, 85, 0.25) 0%, rgba(109, 86, 61, 0.35) 50%, rgba(139, 115, 85, 0.25) 100%);
+    border-radius: 4px;
+    padding: 12px;
+  }
+
+  .card-frame {
+    background: white;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    transition: all 0.3s ease;
+  }
+
+  .academic-book-card:hover .card-frame {
+    border-color: #4a5b75;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .book-layout {
+    display: flex;
+    gap: 16px;
+    height: 100%;
+  }
+
+  .cover-section {
+    flex-shrink: 0;
+  }
+
+  .book-cover {
+    width: 120px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .info-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .year-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: #e5e7eb;
+    color: #374151;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    width: fit-content;
+    margin-bottom: 8px;
+  }
+
+  .book-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+  }
+
+  .book-summary {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: #4b5563;
+    margin: 0 0 12px 0;
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .view-button {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #4a5b75;
+    text-decoration: underline;
+  }
+</style>
+
