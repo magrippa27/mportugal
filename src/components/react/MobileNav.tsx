@@ -81,20 +81,28 @@ export default function MobileNav({ lang, navItems, currentPath }: Props) {
 
             <div className="mt-8 pt-8 border-t border-gray-200">
               <p className="text-sm text-gray-600 mb-3">Language</p>
-              <div className="flex space-x-2">
-                {Object.entries(languages).map(([code, name]) => (
-                  <a
-                    key={code}
-                    href={switchLanguageUrl(currentPath, code as Language)}
-                    className={`px-4 py-2 rounded text-sm font-medium transition-colors ${
-                      code === lang
-                        ? 'bg-primary-600 text-white'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
-                  >
-                    {code.toUpperCase()}
-                  </a>
-                ))}
+              <div className="flex flex-col space-y-2">
+                {Object.entries(languages).map(([code, name]) => {
+                  const flags: Record<string, string> = {
+                    en: '🇬🇧',
+                    es: '🇪🇸',
+                    pt: '🇵🇹',
+                  };
+                  return (
+                    <a
+                      key={code}
+                      href={switchLanguageUrl(currentPath, code as Language)}
+                      className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                        code === lang
+                          ? 'bg-primary-600 text-white'
+                          : 'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-200'
+                      }`}
+                    >
+                      <span className="text-xl">{flags[code]}</span>
+                      <span>{name}</span>
+                    </a>
+                  );
+                })}
               </div>
             </div>
           </div>
