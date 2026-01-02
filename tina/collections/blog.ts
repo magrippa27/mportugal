@@ -54,6 +54,7 @@ export const BlogCollection: Collection = {
       options: [
         { label: "English", value: "en" },
         { label: "Español", value: "es" },
+        { label: "Português", value: "pt" },
       ],
     },
     {

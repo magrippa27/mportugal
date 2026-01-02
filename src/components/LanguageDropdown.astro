@@ -1,5 +1,5 @@
 ---
-import { type Language } from '../i18n/utils';
+import { type Language, languages } from '../i18n/utils';
 
 interface Props {
   lang: Language;
@@ -8,8 +8,13 @@ interface Props {
 
 const { lang, currentPath } = Astro.props;
 
-const switchToLang = lang === 'en' ? 'es' : 'en';
-const switchPath = currentPath.replace(`/${lang}/`, `/${switchToLang}/`).replace(`/${lang}`, `/${switchToLang}`);
+const languageData: Record<Language, { flag: string; name: string }> = {
+  en: { flag: '🇬🇧', name: 'English' },
+  es: { flag: '🇪🇸', name: 'Español' },
+  pt: { flag: '🇵🇹', name: 'Português' },
+};
+
+const otherLanguages = Object.keys(languages).filter(l => l !== lang) as Language[];
 ---
 
 <div class="language-dropdown">
@@ -24,10 +29,15 @@ const switchPath = currentPath.replace(`/${lang}/`, `/${switchToLang}/`).replace
   </button>
   
   <div class="dropdown-menu">
-    <a href={switchPath} class="dropdown-item">
-      <span class="flag">{switchToLang === 'en' ? '🇬🇧' : '🇪🇸'}</span>
-      <span class="lang-name">{switchToLang === 'en' ? 'English' : 'Español'}</span>
-    </a>
+    {otherLanguages.map(otherLang => {
+      const switchPath = currentPath.replace(`/${lang}/`, `/${otherLang}/`).replace(`/${lang}`, `/${otherLang}`);
+      return (
+        <a href={switchPath} class="dropdown-item">
+          <span class="flag">{languageData[otherLang].flag}</span>
+          <span class="lang-name">{languageData[otherLang].name}</span>
+        </a>
+      );
+    })}
   </div>
 </div>
 

@@ -30,7 +30,7 @@ const blog = defineCollection({
     updatedDate: z.coerce.date().optional(),
     heroImage: z.string().nullish(),
     categories: z.array(z.string()).optional(),
-    language: z.enum(['en', 'es']),
+    language: z.enum(['en', 'es', 'pt']),
   }),
 });
 
@@ -64,7 +64,7 @@ const books = defineCollection({
     summary: z.string(),
     authorNote: z.string(),
     downloadUrl: z.string().optional(),
-    language: z.enum(['en', 'es']),
+    language: z.enum(['en', 'es', 'pt']),
   }),
 });
 

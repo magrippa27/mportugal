@@ -72,6 +72,7 @@ export const BooksCollection: Collection = {
       options: [
         { label: "English", value: "en" },
         { label: "Español", value: "es" },
+        { label: "Português", value: "pt" },
       ],
     },
     {
