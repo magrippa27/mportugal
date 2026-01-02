@@ -2,6 +2,7 @@
 import { type Language } from '../i18n/utils';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import { ViewTransitions } from 'astro:transitions';
 import '../styles/global.css';
 
 interface Props {
@@ -42,6 +43,46 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <ViewTransitions />
+    
+    <style is:global>
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+        }
+      }
+      
+      @keyframes fade-out {
+        to {
+          opacity: 0;
+        }
+      }
+      
+      @keyframes slide-from-right {
+        from {
+          transform: translateX(30px);
+          opacity: 0;
+        }
+      }
+      
+      @keyframes slide-to-left {
+        to {
+          transform: translateX(-30px);
+          opacity: 0;
+        }
+      }
+
+      ::view-transition-old(root) {
+        animation: 300ms cubic-bezier(0.4, 0, 0.2, 1) both fade-out,
+                   300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+      }
+      
+      ::view-transition-new(root) {
+        animation: 400ms cubic-bezier(0.4, 0, 0.2, 1) both fade-in,
+                   400ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+      }
+    </style>
   </head>
   <body class="bg-neutral text-gray-900 antialiased">
     <div class="flex flex-col min-h-screen">
