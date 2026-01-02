@@ -59,41 +59,49 @@ const featuredBooks = allBooks
   description={t('site.tagline')}
   lang={lang}
 >
-  <section class="relative h-[500px] flex items-center justify-center overflow-hidden">
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden py-20">
     <div class="absolute inset-0 z-0">
       <img 
         src="/desk.webp" 
         alt={t('site.title')}
-        class="w-full h-full object-cover object-[center_30%]"
+        class="w-full h-full object-cover object-center"
       />
-      <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+      <div class="absolute inset-0 bg-black bg-opacity-40"></div>
     </div>
-    <div class="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-      <h1 class="text-5xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">
-        {'Manuel Wilches'}
-      </h1>
-      <p class="text-2xl text-white mb-8 drop-shadow-md">
-        {'CR6IK - CT4IK - LU5OM'}
-      </p>
-    </div>
-  </section>
-
-  <section class="py-16 bg-neutral">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-4xl font-bold text-center mb-12 text-gray-900">
-        {t('nav.radio')} & {t('nav.tobacco')}
-      </h2>
-      <div class="grid md:grid-cols-2 gap-12">
-        <RadioAwardNav
-          title={t('home.radioCard.title')}
-          description={t('home.radioCard.description')}
-          link={`/${lang}/radio`}
-        />
-        <TobaccoLabelCard
-          title={t('home.tobaccoCard.title')}
-          content={t('home.tobaccoCard.description')}
-          link={`/${lang}/tobacco`}
-        />
+    
+    <div class="relative z-10 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto w-full">
+      <div class="text-center mb-10">
+        <div class="group bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl px-8 py-10 md:px-12 md:py-12 inline-block transition-all duration-500 hover:bg-white/15">
+          <h1 class="text-5xl md:text-7xl font-bold text-white mb-5 drop-shadow-lg">
+            {'Manuel Wilches'}
+          </h1>
+          <div class="flex items-center justify-center gap-6 md:gap-8 my-6 overflow-hidden max-h-0 opacity-0 group-hover:max-h-64 group-hover:opacity-100 transition-all duration-500">
+            <img src="/rcsalta.png" alt="RC Salta" class="h-32 md:h-40 w-auto object-contain drop-shadow-2xl" />
+            <img src="/galo.png" alt="Galo de Barcelos" class="h-32 md:h-40 w-auto object-contain drop-shadow-2xl" />
+          </div>
+          <p class="text-2xl md:text-3xl text-white/90 drop-shadow-md font-light tracking-wide">
+            {'CR6IK - CT4IK - LU5OM'}
+          </p>
+        </div>
+      </div>
+      
+      <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl shadow-2xl p-4 md:p-5 max-w-5xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-4 md:gap-6 scale-80 md:scale-95 origin-center md:grid-rows-1">
+          <div class="card-wrapper transform transition-all duration-500 hover:scale-105 min-h-[280px] md:min-h-[320px] flex grayscale hover:grayscale-0 opacity-60 hover:opacity-100 brightness-150 hover:brightness-100">
+            <RadioAwardNav
+              title={t('home.radioCard.title')}
+              description={t('home.radioCard.description')}
+              link={`/${lang}/radio`}
+            />
+          </div>
+          <div class="card-wrapper transform transition-all duration-500 hover:scale-105 min-h-[280px] md:min-h-[320px] flex grayscale hover:grayscale-0 opacity-60 hover:opacity-100 brightness-150 hover:brightness-100">
+            <TobaccoLabelCard
+              title={t('home.tobaccoCard.title')}
+              content={t('home.tobaccoCard.description')}
+              link={`/${lang}/tobacco`}
+            />
+          </div>
+        </div>
       </div>
     </div>
   </section>
