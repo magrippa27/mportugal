@@ -9,11 +9,20 @@ const blog = defineCollection({
       ?.filter((post) => !!post)
       .map((post) => {
         const node = post?.node;
+        
+        let heroImage = node?.heroImage;
+        if (heroImage && typeof heroImage === 'object' && heroImage !== null) {
+          heroImage = (heroImage as any).src || (heroImage as any).url || heroImage;
+        }
+        if (typeof heroImage !== 'string') {
+          heroImage = null;
+        }
 
         return {
           ...node,
           id: node?._sys.relativePath.replace(/\.mdx?$/, ""),
           tinaInfo: node?._sys,
+          heroImage,
         };
       });
   },
@@ -42,11 +51,20 @@ const books = defineCollection({
       ?.filter((book) => !!book)
       .map((book) => {
         const node = book?.node;
+        
+        let coverImage = node?.coverImage;
+        if (coverImage && typeof coverImage === 'object' && coverImage !== null) {
+          coverImage = (coverImage as any).src || (coverImage as any).url || coverImage;
+        }
+        if (typeof coverImage !== 'string') {
+          coverImage = '';
+        }
 
         return {
           ...node,
           id: node?._sys.relativePath.replace(/\.mdx?$/, ""),
           tinaInfo: node?._sys,
+          coverImage,
         };
       });
   },
