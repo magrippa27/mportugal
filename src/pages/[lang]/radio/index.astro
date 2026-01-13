@@ -5,6 +5,7 @@ import MainLayout from '../../../layouts/MainLayout.astro';
 import RadioBookCard from '../../../components/RadioBookCard.astro';
 import RadioPostCard from '../../../components/RadioPostCard.astro';
 import RadioAward from '../../../components/RadioAward.astro';
+import CitiesCarousel from '../../../components/react/CitiesCarousel';
 import { type Language, useTranslations, languages } from '../../../i18n/utils';
 
 export async function getStaticPaths() {
@@ -286,7 +287,7 @@ const awards = [
       )}
 
       {sortedPosts.length > 0 && (
-        <section>
+        <section class="mb-20">
           <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center mb-8">
               <h2 class="text-3xl font-bold text-gray-900">
@@ -315,6 +316,50 @@ const awards = [
           </div>
         </section>
       )}
+
+      <section class="py-16 bg-neutral">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="mb-8 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              {lang === 'en' ? 'Radio Collection' : 'Colección de Radio'}
+            </h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+              {lang === 'en' 
+                ? 'A glimpse into my amateur radio journey through antennas, manuals, equipment, and awards.'
+                : 'Una mirada a mi trayectoria en radioafición a través de antenas, manuales, equipos y premios.'}
+            </p>
+          </div>
+          <CitiesCarousel 
+            cities={[
+              {
+                src: '/radio-4695874_1920.jpg',
+                alt: 'Antennas',
+                city: lang === 'en' ? 'Antennas' : 'Antenas',
+                country: lang === 'en' ? 'Radio Equipment' : 'Equipos de Radio'
+              },
+              {
+                src: '/radio-4695874_1920.jpg',
+                alt: 'Manuals',
+                city: lang === 'en' ? 'Manuals' : 'Manuales',
+                country: lang === 'en' ? 'Documentation' : 'Documentación'
+              },
+              {
+                src: '/radio-4695874_1920.jpg',
+                alt: 'Equipment',
+                city: lang === 'en' ? 'Equipment' : 'Equipos',
+                country: lang === 'en' ? 'Station Setup' : 'Configuración de Estación'
+              },
+              {
+                src: '/radio-4695874_1920.jpg',
+                alt: 'Awards',
+                city: lang === 'en' ? 'Awards' : 'Premios',
+                country: lang === 'en' ? 'Achievements' : 'Logros'
+              }
+            ]} 
+            client:load 
+          />
+        </div>
+      </section>
     </div>
   </div>
 </MainLayout>
