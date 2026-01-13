@@ -21,17 +21,21 @@ export function useTranslations(lang: Language) {
 }
 
 export function getLocalizedUrl(url: string, lang: Language): string {
-  return `/${lang}${url}`;
+  const baseUrl = import.meta.env.BASE_URL;
+  const normalizedUrl = url === '/' ? '' : url;
+  return `${baseUrl}${lang}${normalizedUrl}`;
 }
 
 export function switchLanguageUrl(currentPath: string, newLang: Language): string {
-  const pathParts = currentPath.split('/').filter(Boolean);
+  const baseUrl = import.meta.env.BASE_URL;
+  const pathWithoutBase = currentPath.replace(baseUrl, '');
+  const pathParts = pathWithoutBase.split('/').filter(Boolean);
   if (pathParts[0] in languages) {
     pathParts[0] = newLang;
   } else {
     pathParts.unshift(newLang);
   }
-  return '/' + pathParts.join('/');
+  return baseUrl + pathParts.join('/');
 }
 
 const translations: Record<Language, Record<string, string>> = {

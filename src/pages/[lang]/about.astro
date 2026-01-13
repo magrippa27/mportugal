@@ -11,27 +11,28 @@ export async function getStaticPaths() {
 const { lang } = Astro.params as { lang: Language };
 const t = useTranslations(lang);
 
+const baseUrl = import.meta.env.BASE_URL;
 const cities = [
   {
-    src: '/portugal.jpg',
+    src: `${baseUrl}portugal.jpg`,
     alt: 'Porto',
     city: 'Porto',
     country: lang === 'en' ? 'Portugal' : 'Portugal'
   },
   {
-    src: '/portugal.jpg',
+    src: `${baseUrl}portugal.jpg`,
     alt: 'Setubal',
     city: 'Setúbal',
     country: lang === 'en' ? 'Portugal' : 'Portugal'
   },
   {
-    src: '/MDEPORTUAL.jpg',
+    src: `${baseUrl}MDEPORTUAL.jpg`,
     alt: 'Benguela',
     city: 'Benguela',
     country: lang === 'en' ? 'Angola' : 'Angola'
   },
   {
-    src: '/atlas-1052011_1920.jpg',
+    src: `${baseUrl}atlas-1052011_1920.jpg`,
     alt: 'Salta',
     city: 'Salta',
     country: lang === 'en' ? 'Argentina' : 'Argentina'
@@ -47,7 +48,7 @@ const cities = [
   <section class="relative h-[400px] flex items-center justify-center overflow-hidden">
     <div class="absolute inset-0 z-0">
       <img 
-        src="/MDEPORTUAL.jpg" 
+        src={`${import.meta.env.BASE_URL}MDEPORTUAL.jpg`}
         alt={t('about.title')}
         class="w-full h-full object-cover object-[center_30%]"
       />

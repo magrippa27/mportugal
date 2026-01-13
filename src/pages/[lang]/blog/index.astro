@@ -36,14 +36,14 @@ const uniqueCategories = [...new Set(allPosts.flatMap(post => post.data.categori
       {uniqueCategories.length > 0 && (
         <div class="flex flex-wrap justify-center gap-3 mb-12">
           <a 
-            href={`/${lang}/blog`}
+            href={`${import.meta.env.BASE_URL}${lang}/blog`}
             class="px-4 py-2 rounded-full bg-primary-600 text-white hover:bg-primary-700 transition-colors font-medium"
           >
             {t('blog.category.all')}
           </a>
           {uniqueCategories.map(category => (
             <a 
-              href={`/${lang}/blog/category/${category}`}
+              href={`${import.meta.env.BASE_URL}${lang}/blog/category/${category}`}
               class="px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors font-medium"
             >
               {t(`blog.category.${category}`)}

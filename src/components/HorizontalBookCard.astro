@@ -22,7 +22,7 @@ const badgeColor = accentColor === 'primary' ? 'bg-primary-100 text-primary-800'
 ---
 
 <a 
-  href={`/${lang}/books/${slug}`}
+  href={`${import.meta.env.BASE_URL}${lang}/books/${slug}`}
   class={`group flex gap-6 bg-white rounded-lg border-2 border-gray-300 hover:${borderColor} hover:shadow-xl transition-all p-6`}
 >
   <div class="flex-shrink-0">

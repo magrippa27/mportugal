@@ -13,7 +13,8 @@ interface Props {
 
 const { title, description, pubDate, slug, lang, heroImage } = Astro.props;
 const t = useTranslations(lang);
-const finalHeroImage = heroImage || '/placeholders/tobacco-post-default.jpg';
+const baseUrl = import.meta.env.BASE_URL;
+const finalHeroImage = heroImage || `${baseUrl}placeholders/tobacco-post-default.jpg`;
 
 const formattedDate = pubDate.toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', {
   year: 'numeric',
@@ -23,7 +24,7 @@ const formattedDate = pubDate.toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-U
 ---
 
 <article class="tobacco-post-card">
-  <a href={`/${lang}/blog/${slug}`} class="vintage-post-frame">
+  <a href={`${import.meta.env.BASE_URL}${lang}/blog/${slug}`} class="vintage-post-frame">
     <div class="vintage-post-border">
       <div class="post-image-wrapper">
         <img src={finalHeroImage} alt={title} class="post-image" />

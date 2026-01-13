@@ -64,7 +64,7 @@ const sortedPosts = tobaccoPosts.sort((a, b) =>
                 {t('tobacco.booksSection')}
               </h2>
               <a 
-                href={`/${lang}/books`}
+                href={`${import.meta.env.BASE_URL}${lang}/books`}
                 class="text-primary-700 hover:text-primary-900 font-medium underline"
               >
                 {t('home.viewAllBooks')} →
@@ -95,7 +95,7 @@ const sortedPosts = tobaccoPosts.sort((a, b) =>
                 {t('tobacco.articlesSection')}
               </h2>
               <a 
-                href={`/${lang}/blog/category/tobacco`}
+                href={`${import.meta.env.BASE_URL}${lang}/blog/category/tobacco`}
                 class="text-primary-700 hover:text-primary-900 font-medium underline"
               >
                 {t('home.viewAllPosts')} →

@@ -41,7 +41,7 @@ const sortedPosts = allPosts.sort((a, b) =>
   <div class="py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <a 
-        href={`/${lang}/blog`}
+        href={`${import.meta.env.BASE_URL}${lang}/blog`}
         class="inline-flex items-center text-primary-700 hover:text-primary-900 mb-8 font-medium"
       >
         ← {t('blog.backToBlog')}

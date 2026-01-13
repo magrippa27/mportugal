@@ -24,7 +24,7 @@ const quickLinks = [
       
       <div class="flex flex-col items-center md:items-start">
         <a href={getLocalizedUrl('/', lang)} class="flex items-center gap-2 md:gap-3 text-gray-900 hover:text-primary-700 transition-colors mb-2">
-          <img src="/portugal.jpg" alt="Portugal Flag" class="h-8 w-16 md:h-10 md:w-15 object-cover rounded shadow-sm" />
+          <img src={`${import.meta.env.BASE_URL}portugal.jpg`} alt="Portugal Flag" class="h-8 w-16 md:h-10 md:w-15 object-cover rounded shadow-sm" />
           <div class="flex flex-col justify-center gap-0">
             <span class="text-lg md:text-xl font-bold leading-tight">{t('site.title')}</span>
             <span class="text-xs md:text-sm font-normal text-gray-600 leading-tight -mt-0.5">CR6IK - CT4IK - LU5OM</span>

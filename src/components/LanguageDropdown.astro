@@ -1,5 +1,5 @@
 ---
-import { type Language, languages } from '../i18n/utils';
+import { type Language, languages, switchLanguageUrl } from '../i18n/utils';
 
 interface Props {
   lang: Language;
@@ -30,7 +30,7 @@ const otherLanguages = Object.keys(languages).filter(l => l !== lang) as Languag
   
   <div class="dropdown-menu">
     {otherLanguages.map(otherLang => {
-      const switchPath = currentPath.replace(`/${lang}/`, `/${otherLang}/`).replace(`/${lang}`, `/${otherLang}`);
+      const switchPath = switchLanguageUrl(currentPath, otherLang);
       return (
         <a href={switchPath} class="dropdown-item">
           <span class="flag">{languageData[otherLang].flag}</span>
