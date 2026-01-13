@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 
-const PASSWORD = 'mportugal2024';
+const PASSWORD = import.meta.env.PUBLIC_SITE_PASSWORD || '';
 const STORAGE_KEY = 'mportugal_auth';
 const AUTH_DURATION = 60 * 60 * 1000;
 
@@ -62,6 +62,11 @@ export default function PasswordProtection() {
     e.preventDefault();
     setError('');
 
+    if (!PASSWORD) {
+      setError('Password protection not configured');
+      return;
+    }
+
     if (password === PASSWORD) {
       const authData: AuthData = {
         timestamp: Date.now(),
@@ -77,7 +82,7 @@ export default function PasswordProtection() {
     }
   };
 
-  if (isAuthenticated) {
+  if (isAuthenticated || !PASSWORD) {
     return null;
   }
 
