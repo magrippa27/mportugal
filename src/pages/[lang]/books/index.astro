@@ -6,6 +6,7 @@ import RadioBookCard from '../../../components/RadioBookCard.astro';
 import TobaccoBookCard from '../../../components/TobaccoBookCard.astro';
 import AcademicBookCard from '../../../components/AcademicBookCard.astro';
 import { type Language, useTranslations, languages } from '../../../i18n/utils';
+import { normalizeImagePath } from '../../../utils/images';
 
 export async function getStaticPaths() {
   return Object.keys(languages).map(lang => ({ params: { lang } }));
@@ -32,7 +33,7 @@ const booksByCategory = {
   <section class="relative h-[400px] flex items-center justify-center overflow-hidden">
     <div class="absolute inset-0 z-0">
       <img 
-        src="/atlas-1052011_1920.jpg" 
+        src={normalizeImagePath('/atlas-1052011_1920.jpg')}
         alt={t('books.title')}
         class="w-full h-full object-cover"
       />

@@ -1,5 +1,6 @@
 ---
 import { type Language, useTranslations } from '../i18n/utils';
+import { normalizeImagePath } from '../utils/images';
 
 interface Props {
   title: string;
@@ -14,8 +15,7 @@ interface Props {
 const { title, category, coverImage, summary, slug, lang, publicationDate } = Astro.props;
 const t = useTranslations(lang);
 const year = publicationDate.getFullYear();
-const baseUrl = import.meta.env.BASE_URL;
-const finalCoverImage = coverImage || `${baseUrl}placeholders/other-book-default.jpg`;
+const finalCoverImage = normalizeImagePath(coverImage || '/placeholders/other-book-default.jpg');
 ---
 
 <a href={`${baseUrl}${lang}/books/${slug}`} class="academic-book-card">

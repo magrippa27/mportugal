@@ -6,6 +6,7 @@ import RadioBookCard from '../../../components/RadioBookCard.astro';
 import TobaccoBookCard from '../../../components/TobaccoBookCard.astro';
 import AcademicBookCard from '../../../components/AcademicBookCard.astro';
 import { type Language, useTranslations, languages } from '../../../i18n/utils';
+import { normalizeImagePath } from '../../../utils/images';
 
 export async function getStaticPaths() {
   const allBooksCollection = (await getCollection('books' as any)) as any[];
@@ -40,7 +41,7 @@ const formattedDate = book.data.publicationDate.toLocaleDateString(
   title={book.data.title}
   description={book.data.summary}
   lang={lang}
-  image={book.data.coverImage}
+  image={normalizeImagePath(book.data.coverImage)}
 >
   <article class="py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -48,7 +49,7 @@ const formattedDate = book.data.publicationDate.toLocaleDateString(
         <div class="lg:col-span-1">
           <div class="sticky top-24">
             <img 
-              src={book.data.coverImage} 
+              src={normalizeImagePath(book.data.coverImage)} 
               alt={book.data.title}
               class="w-full rounded-lg shadow-xl mb-6"
             />

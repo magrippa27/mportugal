@@ -1,5 +1,6 @@
 ---
 import { type Language, useTranslations } from '../i18n/utils';
+import { normalizeImagePath } from '../utils/images';
 
 interface Props {
   title: string;
@@ -13,8 +14,7 @@ interface Props {
 
 const { title, description, pubDate, slug, lang, heroImage } = Astro.props;
 const t = useTranslations(lang);
-const baseUrl = import.meta.env.BASE_URL;
-const finalHeroImage = heroImage || `${baseUrl}placeholders/tobacco-post-default.jpg`;
+const finalHeroImage = normalizeImagePath(heroImage || '/placeholders/tobacco-post-default.jpg');
 
 const formattedDate = pubDate.toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', {
   year: 'numeric',

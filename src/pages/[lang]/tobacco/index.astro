@@ -5,6 +5,7 @@ import MainLayout from '../../../layouts/MainLayout.astro';
 import TobaccoBookCard from '../../../components/TobaccoBookCard.astro';
 import TobaccoPostCard from '../../../components/TobaccoPostCard.astro';
 import { type Language, useTranslations, languages } from '../../../i18n/utils';
+import { normalizeImagePath } from '../../../utils/images';
 
 export async function getStaticPaths() {
   return Object.keys(languages).map(lang => ({ params: { lang } }));
@@ -35,7 +36,7 @@ const sortedPosts = tobaccoPosts.sort((a, b) =>
   <section class="relative h-[400px] flex items-center justify-center overflow-hidden">
     <div class="absolute inset-0 z-0">
       <img 
-        src="/tobacco-1792070_1920.jpg" 
+        src={normalizeImagePath('/tobacco-1792070_1920.jpg')}
         alt={t('tobacco.title')}
         class="w-full h-full object-cover"
       />

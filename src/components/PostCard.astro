@@ -1,5 +1,6 @@
 ---
 import { type Language, useTranslations } from '../i18n/utils';
+import { normalizeImagePath } from '../utils/images';
 
 interface Props {
   title: string;
@@ -24,7 +25,7 @@ const formattedDate = pubDate.toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-U
 <article class="bg-white rounded-lg border-2 border-gray-300 overflow-hidden hover:shadow-lg transition-shadow">
   {heroImage && (
     <img 
-      src={heroImage} 
+      src={normalizeImagePath(heroImage)} 
       alt={title}
       class="w-full h-48 object-cover"
     />

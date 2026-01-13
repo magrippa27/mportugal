@@ -1,5 +1,6 @@
 ---
 import { type Language, useTranslations } from '../i18n/utils';
+import { normalizeImagePath } from '../utils/images';
 
 interface Props {
   title: string;
@@ -27,7 +28,7 @@ const badgeColor = accentColor === 'primary' ? 'bg-primary-100 text-primary-800'
 >
   <div class="flex-shrink-0">
     <img 
-      src={coverImage}
+      src={normalizeImagePath(coverImage)}
       alt={title}
       class="w-32 h-44 object-cover rounded shadow-md group-hover:shadow-lg transition-shadow"
     />
