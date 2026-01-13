@@ -22,7 +22,7 @@ export default defineConfig({
   build: {
     outputFolder: "admin",
     publicFolder: "public",
-    basePath: "/mportugal/",
+    basePath: "mportugal",
   },
   media: {
     tina: {
