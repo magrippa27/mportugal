@@ -2,6 +2,7 @@
 import { type Language } from '../i18n/utils';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import PasswordProtection from '../components/react/PasswordProtection';
 import { ViewTransitions } from 'astro:transitions';
 import '../styles/global.css';
 
@@ -85,6 +86,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     </style>
   </head>
   <body class="bg-neutral text-gray-900 antialiased">
+    <PasswordProtection client:load />
     <div class="flex flex-col min-h-screen">
       <SiteHeader lang={lang} />
       <main class="flex-grow">
