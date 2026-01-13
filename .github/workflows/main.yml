@@ -18,17 +18,31 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
+      - name: List directory structure
+        run: ls -la
+      
+      - name: Check if mportugal exists
+        run: |
+          if [ -d "mportugal" ]; then
+            echo "mportugal folder exists"
+            ls -la mportugal/
+          else
+            echo "mportugal folder does NOT exist"
+            echo "Root directory contents:"
+            ls -la
+            echo "Looking for package.json:"
+            find . -name "package.json" -type f 2>/dev/null | head -5
+          fi
+      
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
       
       - name: Install dependencies
-        working-directory: mportugal
         run: npm ci
       
       - name: Build TinaCMS
-        working-directory: mportugal
         env:
           PUBLIC_TINA_CLIENT_ID: ${{ secrets.PUBLIC_TINA_CLIENT_ID }}
           TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
@@ -36,7 +50,6 @@ jobs:
         run: npx tinacms build
       
       - name: Build Astro site
-        working-directory: mportugal
         env:
           PUBLIC_TINA_CLIENT_ID: ${{ secrets.PUBLIC_TINA_CLIENT_ID }}
           TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
@@ -51,7 +64,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: mportugal/dist
+          path: 'dist'
 
   deploy:
     environment:
