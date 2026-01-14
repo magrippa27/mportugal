@@ -45,7 +45,7 @@ const navItems = [
       </nav>
       
       <div class="md:hidden">
-        <MobileNav client:load lang={lang} navItems={navItems} currentPath={Astro.url.pathname} />
+        <MobileNav client:only="react" lang={lang} navItems={navItems} currentPath={Astro.url.pathname} />
       </div>
     </div>
   </div>

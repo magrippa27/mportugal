@@ -88,7 +88,7 @@ const normalizedImage = normalizeImagePath(image);
     </style>
   </head>
   <body class="bg-neutral text-gray-900 antialiased">
-    <PasswordProtection client:load />
+    <PasswordProtection client:only="react" />
     <div class="flex flex-col min-h-screen">
       <SiteHeader lang={lang} />
       <main class="flex-grow">

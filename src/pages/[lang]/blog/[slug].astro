@@ -166,50 +166,86 @@ const authorImage = normalizeImagePath('/MDEPORTUAL.jpg');
       </header>
       
       <div class="prose prose-lg max-w-none prose-headings:font-bold prose-a:text-primary-700 prose-a:underline hover:prose-a:text-primary-900 prose-p:break-words">
-        <BlogPostContent {...tinaProps} baseUrl={import.meta.env.BASE_URL} client:load />
+        <BlogPostContent {...tinaProps} baseUrl={import.meta.env.BASE_URL} client:only="react" />
       </div>
     </div>
     <script is:inline>
-      document.addEventListener('DOMContentLoaded', () => {
-        const shareButton = document.querySelector('[data-share-url]');
-        if (shareButton) {
-          shareButton.addEventListener('click', async () => {
-            const url = shareButton.getAttribute('data-share-url') || '';
-            const title = shareButton.getAttribute('data-share-title') || '';
-            const text = shareButton.getAttribute('data-share-text') || '';
-            
-            if (navigator.share) {
-              try {
-                await navigator.share({ title, text, url });
-              } catch (err) {
-                if (err instanceof Error && err.name !== 'AbortError') {
-                  console.error('Error sharing:', err);
+      (function() {
+        const SCRIPT_ID = 'blog-share-script';
+        if (document.getElementById(SCRIPT_ID)) return;
+        
+        const scriptMarker = document.createElement('div');
+        scriptMarker.id = SCRIPT_ID;
+        scriptMarker.style.display = 'none';
+        document.body.appendChild(scriptMarker);
+        
+        const initShareButtons = () => {
+          const shareButton = document.querySelector('[data-share-url]');
+          if (shareButton) {
+            const existingHandler = shareButton.getAttribute('data-handler-attached');
+            if (!existingHandler) {
+              shareButton.setAttribute('data-handler-attached', 'true');
+              shareButton.addEventListener('click', async () => {
+                const url = shareButton.getAttribute('data-share-url') || '';
+                const title = shareButton.getAttribute('data-share-title') || '';
+                const text = shareButton.getAttribute('data-share-text') || '';
+                
+                if (navigator.share) {
+                  try {
+                    await navigator.share({ title, text, url });
+                  } catch (err) {
+                    if (err instanceof Error && err.name !== 'AbortError') {
+                      console.error('Error sharing:', err);
+                    }
+                  }
+                } else {
+                  try {
+                    await navigator.clipboard.writeText(url);
+                    alert('Link copied to clipboard!');
+                  } catch (err) {
+                    console.error('Error copying:', err);
+                  }
                 }
-              }
-            } else {
-              try {
-                await navigator.clipboard.writeText(url);
-                alert('Link copied to clipboard!');
-              } catch (err) {
-                console.error('Error copying:', err);
-              }
+              });
             }
-          });
+          }
+          
+          const copyButton = document.querySelector('[data-copy-url]');
+          if (copyButton) {
+            const existingHandler = copyButton.getAttribute('data-handler-attached');
+            if (!existingHandler) {
+              copyButton.setAttribute('data-handler-attached', 'true');
+              copyButton.addEventListener('click', async () => {
+                const url = copyButton.getAttribute('data-copy-url') || '';
+                try {
+                  await navigator.clipboard.writeText(url);
+                  alert('Link copied to clipboard!');
+                } catch (err) {
+                  console.error('Error copying:', err);
+                }
+              });
+            }
+          }
+        };
+        
+        const runInit = () => {
+          const shareButton = document.querySelector('[data-share-url]');
+          const copyButton = document.querySelector('[data-copy-url]');
+          if (shareButton || copyButton) {
+            shareButton?.removeAttribute('data-handler-attached');
+            copyButton?.removeAttribute('data-handler-attached');
+            initShareButtons();
+          }
+        };
+        
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', runInit);
+        } else {
+          runInit();
         }
         
-        const copyButton = document.querySelector('[data-copy-url]');
-        if (copyButton) {
-          copyButton.addEventListener('click', async () => {
-            const url = copyButton.getAttribute('data-copy-url') || '';
-            try {
-              await navigator.clipboard.writeText(url);
-              alert('Link copied to clipboard!');
-            } catch (err) {
-              console.error('Error copying:', err);
-            }
-          });
-        }
-      });
+        document.addEventListener('astro:page-load', runInit);
+      })();
     </script>
   </article>
   

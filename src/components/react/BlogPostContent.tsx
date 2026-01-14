@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { TinaMarkdown } from 'tinacms/dist/rich-text';
 import type { BlogQuery, BlogQueryVariables } from '../../../tina/__generated__/types';
 
@@ -38,26 +38,26 @@ export default function BlogPostContent(props: Props) {
 
   if (!blog || !blog.body) return null;
 
-  const components = {
-    img: (props: any) => {
-      const src = props.src || props.url || '';
+  const components = useMemo(() => ({
+    img: (imgProps: any) => {
+      const src = imgProps.src || imgProps.url || '';
       const normalizedSrc = normalizeImagePath(src, baseUrl);
-      return <img {...props} src={normalizedSrc} alt={props.alt || ''} />;
+      return <img {...imgProps} src={normalizedSrc} alt={imgProps.alt || ''} />;
     },
-    p: (props: any) => {
-      const children = React.Children.toArray(props.children);
+    p: (pProps: any) => {
+      const children = React.Children.toArray(pProps.children);
       const processedChildren = React.Children.map(children, (child: any) => {
         if (React.isValidElement(child) && child.type === 'img') {
-          const imgProps = child.props;
-          const src = imgProps.src || imgProps.url || '';
+          const childProps = child.props as any;
+          const src = childProps.src || childProps.url || '';
           const normalizedSrc = normalizeImagePath(src, baseUrl);
-          return React.cloneElement(child, { ...imgProps, src: normalizedSrc });
+          return React.cloneElement(child as React.ReactElement<any>, { ...childProps, src: normalizedSrc });
         }
         return child;
       });
-      return <p {...props}>{processedChildren}</p>;
+      return <p {...pProps}>{processedChildren}</p>;
     },
-  };
+  }), [baseUrl]);
 
   return (
     <div>
